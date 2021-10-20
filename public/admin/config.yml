@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway
+  branch: main
+publish_mode: editorial_workflow
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: "project"
+    label: "Project"
+    folder: "content/projects"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: slug
+    summary: "{{title}}"
+    fields:
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "project",
+        }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
