@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 
 export type IProject = {
   readonly slug: string;
@@ -32,12 +33,16 @@ class Projects {
     const fileNames = fs.readdirSync(this.dir);
     const projects = fileNames.map((fileName) => {
       const fullPath = path.join(this.dir, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const source = fs.readFileSync(fullPath, "utf8");
 
       const {
         data: { slug, title, date },
         content,
-      } = matter(fileContents);
+      } = matter(source, {
+        engines: {
+          yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
+        },
+      });
 
       const project = {
         slug,

@@ -27,12 +27,12 @@ class Projects {
     // Load first file as About.
     const about = fileNames.map((fileName) => {
       const fullPath = path.join(this.dir, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const source = fs.readFileSync(fullPath, "utf8");
 
       const {
         data: { title, instagram },
         content,
-      } = matter(fileContents);
+      } = matter(source);
 
       return {
         title,
