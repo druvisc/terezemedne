@@ -6,7 +6,7 @@ import { Project, Props as ProjectProps } from "../../components/Project";
 
 // TODO: fallback, go to home etc?
 export const getStaticPaths: GetStaticPaths = async () => {
-  const list = await projects.list;
+  const list = await projects.load();
 
   return {
     paths: list.map(({ slug }) => `/projects/${slug}`),

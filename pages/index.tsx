@@ -8,7 +8,7 @@ import Link from "next/link";
 export async function getStaticProps() {
   return {
     props: {
-      projects: await projects.list,
+      projects: await projects.load(),
     },
   };
 }

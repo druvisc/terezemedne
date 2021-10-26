@@ -11,28 +11,24 @@ export type IProject = {
 
 // TODO: Use slug with date in filename, but listing staticpaths, map to only slug.
 class Projects {
-  private _list?: IProject[];
+  private _data?: IProject[];
   private readonly dir = path.join(process.cwd(), "content/projects");
 
   public async bySlug(slug: IProject["slug"]): Promise<IProject | null> {
-    const list = await this.list;
+    const list = await this.load();
 
     return list.find((project) => project.slug === slug) ?? null;
   }
 
-  public get list() {
-    return this.load();
-  }
-
-  private async load() {
-    if (!this._list) {
-      this._list = await this.getList();
+  public async load(): Promise<IProject[]> {
+    if (!this._data) {
+      this._data = await this._load();
     }
 
-    return this._list;
+    return this._data;
   }
 
-  private getList(): IProject[] {
+  private _load(): IProject[] {
     const fileNames = fs.readdirSync(this.dir);
     const projects = fileNames.map((fileName) => {
       const fullPath = path.join(this.dir, fileName);

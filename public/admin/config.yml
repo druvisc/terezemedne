@@ -11,16 +11,27 @@ collections:
     delete: false
     editor:
       preview: false
+    format: "frontmatter"
+    extension: "mdx"
     files:
     - name: "about"
       label: "About"
       file: "content/about.mdx"
       description: "About section"
       fields:
+        - label: "Title"
+          name: "title"
+          widget: "string"
+        - label: "test1"
+          name: "test1"
+          widget: "string"
+        - label: "Instagram"
+          name: "instagram"
+          widget: "string"
         - label: "Body"
-        name: "body"
-        widget: "markdown"
-        
+          name: "body"
+          widget: "markdown"
+
   - name: "project"
     identifier_field: slug
     label: "Project"

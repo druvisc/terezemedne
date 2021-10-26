@@ -1,27 +1,26 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-// export async function getStaticProps() {
-//   return {
-//     props: {
-//       projects: await projects.list,
-//     },
-//   };
-// }
+import type { GetStaticProps, NextPage } from "next";
+import { serialize } from "next-mdx-remote/serialize";
 
-type Props = {};
+import about, { IAbout } from "../../lib/about";
+import { About, Props as AboutProps } from "../../components/About";
 
-const AboutPage: NextPage<Props> = ({}) => {
-  return (
-    <article>
-      <header>
-        <h1 className="text-3xl">Terēze Medne</h1>
-      </header>
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await about.load();
+  const mdx = await serialize(data?.content || "");
 
-      <main>ABOUT ME SECTION LOADED FROM A FILE</main>
-    </article>
-  );
+  return {
+    props: {
+      about: data,
+      mdx,
+    },
+  };
+};
+
+const AboutPage: NextPage<AboutProps> = (props) => {
+  return <About {...props} />;
 };
 
 export default AboutPage;
