@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 
 export type IAbout = {
   readonly title: string;
@@ -32,7 +33,11 @@ class Projects {
       const {
         data: { title, instagram },
         content,
-      } = matter(source);
+      } = matter(source, {
+        engines: {
+          yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
+        },
+      });
 
       return {
         title,

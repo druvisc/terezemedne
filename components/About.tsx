@@ -9,6 +9,9 @@ export type Props = {
 };
 
 export const About = ({ about, mdx }: Props) => {
+  console.log("about:", about);
+  console.log("mdx:", mdx);
+
   return (
     <article>
       <header>
@@ -16,7 +19,7 @@ export const About = ({ about, mdx }: Props) => {
       </header>
 
       <div>insta: {about.instagram}</div>
-      
+
       <main>
         <MDXRemote {...mdx} />
       </main>

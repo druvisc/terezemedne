@@ -16,7 +16,7 @@ collections:
     files:
     - name: "about"
       label: "About"
-      file: "content/about.mdx"
+      file: "content/about/about.mdx"
       description: "About section"
       fields:
         - label: "Title"
