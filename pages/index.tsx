@@ -20,12 +20,11 @@ type Props = {
 const HomePage: NextPage<Props> = ({ projects }) => {
   return (
     <div>
-      test
       {/* Gallery view / project list? */}
       <ul>
         {projects.map((project) => (
-          <li key={project.id}>
-            <Link href={`/projects/${project.id}`}>
+          <li key={project.slug}>
+            <Link href={`/projects/${project.slug}`}>
               <a>{project.title}</a>
             </Link>
           </li>

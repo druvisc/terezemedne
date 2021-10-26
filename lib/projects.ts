@@ -3,20 +3,21 @@ import path from "path";
 import matter from "gray-matter";
 
 export type IProject = {
-  readonly id: string;
+  readonly slug: string;
   readonly title: string;
   readonly date: string;
   readonly content: string;
 };
 
+// TODO: Use slug with date in filename, but listing staticpaths, map to only slug.
 class Projects {
   private _list?: IProject[];
   private readonly dir = path.join(process.cwd(), "content/projects");
 
-  public async byId(id: IProject["id"]): Promise<IProject | null> {
+  public async bySlug(slug: IProject["slug"]): Promise<IProject | null> {
     const list = await this.list;
 
-    return list.find((project) => project.id === id) ?? null;
+    return list.find((project) => project.slug === slug) ?? null;
   }
 
   public get list() {
@@ -34,22 +35,22 @@ class Projects {
   private getList(): IProject[] {
     const fileNames = fs.readdirSync(this.dir);
     const projects = fileNames.map((fileName) => {
-      const id = fileName.replace(/\.md$/, "");
-
       const fullPath = path.join(this.dir, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
       const {
+        data: { slug, title, date },
         content,
-        data: { title, date },
       } = matter(fileContents);
 
-      return {
-        id,
+      const project = {
+        slug,
         title,
         date,
         content,
       } as IProject;
+
+      return project;
     });
 
     return projects.sort((a, b) => {

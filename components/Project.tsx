@@ -1,10 +1,14 @@
+import React from "react";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+
 import type { IProject } from "../lib/projects";
 
-type Props = {
+export type Props = {
   project: IProject;
+  mdx: MDXRemoteSerializeResult;
 };
 
-export const Project = ({ project }: Props) => {
+export const Project = ({ project, mdx }: Props) => {
   return (
     <article>
       <header>
@@ -14,7 +18,9 @@ export const Project = ({ project }: Props) => {
       </header>
 
       {/* TODO: Transform markdown. */}
-      <main>{project.content}</main>
+      <main>
+        <MDXRemote {...mdx} />
+      </main>
     </article>
   );
 };

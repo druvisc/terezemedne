@@ -1,41 +1,34 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Project } from "../../components/Project";
+import { serialize } from "next-mdx-remote/serialize";
+
 import projects, { IProject } from "../../lib/projects";
+import { Project, Props as ProjectProps } from "../../components/Project";
 
 // TODO: fallback, go to home etc?
 export const getStaticPaths: GetStaticPaths = async () => {
   const list = await projects.list;
 
   return {
-    paths: list.map(({ id }) => `/projects/${id}`),
+    paths: list.map(({ slug }) => `/projects/${slug}`),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.project as IProject["id"];
-  const project = await projects.byId(id);
-
-  // const { content, data } = matter(source, {
-  //   engines: {
-  //     yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
-  //   },
-  // });
-  // const mdxSource = await renderToString(content, { components, scope: data });
+  const slug = params?.project as IProject["slug"];
+  const project = await projects.bySlug(slug);
+  const mdx = await serialize(project?.content || "");
 
   return {
     props: {
       project,
+      mdx,
     },
   };
 };
 
-type Props = {
-  project: IProject;
-};
-
-const ProjectPage: NextPage<Props> = ({ project }) => {
-  return <Project project={project} />;
+const ProjectPage: NextPage<ProjectProps> = (props) => {
+  return <Project {...props} />;
 };
 
 export default ProjectPage;
