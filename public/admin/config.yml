@@ -6,6 +6,21 @@ media_folder: public/images
 public_folder: /images
 
 collections:
+  - name: "about"
+    label: "About"
+    delete: false
+    editor:
+      preview: false
+    files:
+    - name: "about"
+      label: "About"
+      file: "content/about.mdx"
+      description: "About section"
+      fields:
+        - label: "Body"
+        name: "body"
+        widget: "markdown"
+        
   - name: "project"
     identifier_field: slug
     label: "Project"
@@ -16,14 +31,22 @@ collections:
     slug: "{{slug}}"
     summary: "{{title}}"
     fields:
-      - {
-          label: "Layout",
-          name: "layout",
-          widget: "hidden",
-          default: "project",
-        }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "project"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+      - label: "Featured Image"
+        name: "thumbnail"
+        widget: "image"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"

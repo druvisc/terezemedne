@@ -17,18 +17,9 @@ export const Project = ({ project, mdx }: Props) => {
         </h1>
       </header>
 
-      {/* TODO: Transform markdown. */}
       <main>
         <MDXRemote {...mdx} />
       </main>
     </article>
-  );
-};
-
-export const Preview = ({ project }: Props) => {
-  return (
-    <>
-      {project.title} ({project.date})
-    </>
   );
 };
