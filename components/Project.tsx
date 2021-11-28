@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 
 import type { IProject } from "../lib/projects";
@@ -6,6 +7,12 @@ import type { IProject } from "../lib/projects";
 export type Props = {
   project: IProject;
   mdx: MDXRemoteSerializeResult;
+};
+
+const components = {
+  img: (image: any) => (
+    <Image src={image.src} alt={image.alt} height="200" width="200" />
+  ),
 };
 
 export const Project = ({ project, mdx }: Props) => {
@@ -18,7 +25,7 @@ export const Project = ({ project, mdx }: Props) => {
       </header>
 
       <main>
-        <MDXRemote {...mdx} />
+        <MDXRemote components={components} {...mdx} />
       </main>
     </article>
   );

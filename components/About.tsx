@@ -9,9 +9,6 @@ export type Props = {
 };
 
 export const About = ({ about, mdx }: Props) => {
-  console.log("about:", about);
-  console.log("mdx:", mdx);
-
   return (
     <article>
       <header>
