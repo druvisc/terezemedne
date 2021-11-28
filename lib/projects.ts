@@ -7,6 +7,7 @@ export type IProject = {
   readonly slug: string;
   readonly title: string;
   readonly date: string;
+  readonly image: string;
   readonly content: string;
 };
 
@@ -36,7 +37,7 @@ class Projects {
       const source = fs.readFileSync(fullPath, "utf8");
 
       const {
-        data: { slug, title, date },
+        data: { slug, title, date, image },
         content,
       } = matter(source, {
         engines: {
@@ -48,6 +49,7 @@ class Projects {
         slug,
         title,
         date,
+        image,
         content,
       } as IProject;
 
