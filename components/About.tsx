@@ -8,17 +8,14 @@ export type Props = {
   mdx: MDXRemoteSerializeResult;
 };
 
+// TODO: Move about to json so can be re-used?
 export const About = ({ about, mdx }: Props) => {
   return (
     <article>
-      <header>
-        <h1 className="text-2xl">{about.title}</h1>
-      </header>
-
-      <div>insta: {about.instagram}</div>
-
       <main>
         <MDXRemote {...mdx} />
+
+        <div>insta: {about.instagram}</div>
       </main>
     </article>
   );

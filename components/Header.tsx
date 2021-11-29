@@ -1,13 +1,26 @@
 import React from "react";
 import Link from "next/link";
 
-export const Header = () => {
+export type Props = {
+  instagram?: string;
+};
+
+const Title = <h1 className="uppercase">Terēze Medne</h1>;
+
+export const Header = ({ instagram }: Props) => {
   return (
     <header className="my-4 flex justify-between">
       <Nav />
 
-      {/* TODO: Link to facebook? */}
-      <h1 className="uppercase">Terēze Medne</h1>
+      {instagram ? (
+        <Link href={`https://www.instagram.com/${instagram}/`}>
+          <a target="_blank" rel="noopener noreferrer">
+            {Title}
+          </a>
+        </Link>
+      ) : (
+        Title
+      )}
     </header>
   );
 };
