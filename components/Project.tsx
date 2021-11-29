@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+
 import React from "react";
-import Image from "next/image";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 
 import type { IProject } from "../lib/projects";
@@ -11,7 +12,7 @@ export type Props = {
 
 const components = {
   img: (image: any) => (
-    <Image src={image.src} alt={image.alt} height="200" width="200" />
+    <img src={image.src} alt={image.alt} height="200" width="200" />
   ),
 };
 

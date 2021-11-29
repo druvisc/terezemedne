@@ -1,6 +1,6 @@
-import React from "react";
+/* eslint-disable @next/next/no-img-element */
 
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 
 import type { IProject } from "../lib/projects";
@@ -60,11 +60,11 @@ const ProjectList = ({
                   height: "250px",
                 }}
               >
-                <Image
+                <img
                   src={project.image}
                   alt={project.title}
-                  layout="fill"
-                  objectFit="contain"
+                  // layout="fill"
+                  // objectFit="contain"
                 />
               </div>
 
