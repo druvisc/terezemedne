@@ -48,22 +48,28 @@ const ProjectList = ({
       }`}
     >
       {projects.map((project) => (
-        <li key={project.slug} className="flex flex-col items-center">
-          {/* TODO: Fix / use margin-top instead of showing somewhere below 500px. */}
-          <div
-            style={{ position: "relative", width: "200px", height: "250px" }}
-          >
-            <Image
-              src={project.image}
-              alt={project.title}
-              layout="fill"
-              objectFit="contain"
-            />
-          </div>
-
+        <li key={project.slug}>
           {/* TODO: Shown only on mobile? */}
           <Link href={`/projects/${project.slug}`}>
-            <a>{project.title}</a>
+            <a className="flex flex-col items-center">
+              {/* TODO: Fix / use margin-top instead of showing somewhere below 500px. */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "200px",
+                  height: "250px",
+                }}
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+
+              {project.title}
+            </a>
           </Link>
         </li>
       ))}

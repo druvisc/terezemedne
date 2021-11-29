@@ -19,12 +19,10 @@ export const Project = ({ project, mdx }: Props) => {
   return (
     <article>
       <header>
-        <h1 className="text-2xl">
-          {project.title} ({project.date})
-        </h1>
+        <h1 className="text-2xl">{project.title}</h1>
       </header>
 
-      <main>
+      <main className="flex flex-col items-center">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>
