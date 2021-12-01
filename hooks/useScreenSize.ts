@@ -8,7 +8,7 @@ const useScreenSize = () => {
   const { width } = useWindowSize();
 
   const screenSize = useMemo(() => {
-    const isMobile = width < BREAKPOINTS.lg;
+    const isMobile = width && width < BREAKPOINTS.lg;
 
     return {
       isMobile,

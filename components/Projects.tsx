@@ -1,24 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
 
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
+import cx from "classnames";
 
-import type { IProject, IProjectImage } from "../lib/projects";
+import type { IProject } from "../lib/projects";
+import useScreenSize from "../hooks/useScreenSize";
 
 import imageMeta from "../public/images/meta.json";
-import useScreenSize from "../hooks/useScreenSize";
-import cx from "classnames";
-// If your application is retrieving image URLs using an API call (such as to a CMS),
-// you may be able to modify the API call to return the image dimensions along with the URL.
+
+// TODO: Lazy loading
 
 export type Props = {
   projects: IProject[];
 };
-
-// add lazy loading
 export const Projects = ({ projects }: Props) => {
   const { isDesktop } = useScreenSize();
 
+  const imageSizes = useMemo(
+    () =>
+      Object.fromEntries(
+        projects.map((project) => [project.image, getImageAttributes(project)])
+      ),
+    [projects]
+  );
+
+  return (
+    <div className="w-5/6 mx-auto my-8">
+      {isDesktop ? (
+        <DesktopList projects={projects} imageSizes={imageSizes} />
+      ) : (
+        <ProjectList projects={projects} imageSizes={imageSizes} />
+      )}
+    </div>
+  );
+};
+
+const DesktopList = ({
+  projects,
+  imageSizes,
+}: {
+  projects: IProject[];
+  imageSizes: any;
+}) => {
   const [list1, list2] = projects.reduce(
     (lists, project, i) => {
       if (i % 2 === 0) lists[0].push(project);
@@ -29,22 +53,15 @@ export const Projects = ({ projects }: Props) => {
     [[], []] as IProject[][]
   );
 
-  // TODO: pass in imageattributes to projectlist, otherwise on screen change rerenders occur on sizes
   return (
-    <div className="w-5/6 mx-auto my-8">
-      {isDesktop ? (
-        <div className="flex">
-          <div className="flex flex-1">
-            <ProjectList projects={list1} isLeftColumn />
-          </div>
+    <div className="flex">
+      <div className="flex flex-1">
+        <ProjectList projects={list1} isLeftColumn imageSizes={imageSizes} />
+      </div>
 
-          <div className="lex flex-1 ml-12">
-            <ProjectList projects={list2} />
-          </div>
-        </div>
-      ) : (
-        <ProjectList projects={projects} />
-      )}
+      <div className="flex flex-1 ml-12">
+        <ProjectList projects={list2} imageSizes={imageSizes} />
+      </div>
     </div>
   );
 };
@@ -52,35 +69,33 @@ export const Projects = ({ projects }: Props) => {
 const ProjectList = ({
   projects,
   isLeftColumn = false,
+  imageSizes,
 }: {
   projects: IProject[];
   isLeftColumn?: boolean;
+  imageSizes: any;
 }) => {
   const { isMobile } = useScreenSize();
 
   return (
     <ol>
       {projects.map((project, i) => {
-        const { src, width, height } = getImageAttributes(project.image);
+        const { src, width, height } = imageSizes[project.image];
 
         return (
           <li key={project.slug} className={cx({ "mt-8": i !== 0 })}>
             <Link href={`/projects/${project.slug}`}>
               <a
-                className={cx("flex flex-col", {
-                  "items-end": isLeftColumn,
-                  "items-start": !isLeftColumn,
+                className={cx("flex flex-col items-center", {
+                  "lg:items-end": isLeftColumn,
+                  "lg:items-start": !isLeftColumn,
                 })}
               >
-                <img
-                  src={src}
-                  alt={project.title}
-                  style={{ width, height: "auto" }}
-                />
+                <img src={src} alt={project.title} />
 
                 {isMobile && <h2 className="mt-4">{project.title}</h2>}
               </a>
-            </Link>{" "}
+            </Link>
           </li>
         );
       })}
@@ -88,22 +103,23 @@ const ProjectList = ({
   );
 };
 
-const getImageAttributes = (image: IProjectImage) => {
-  const meta = imageMeta[image];
-  if (!meta) throw new Error(`Missing image meta for image "${image}"!`);
+const getImageAttributes = (project: IProject) => {
+  const meta = imageMeta[project.image];
+  if (!meta)
+    throw new Error(`Missing image meta for image "${project.image}"!`);
 
   const randomWidth = random();
   const scale = meta.width / randomWidth;
 
   // change src etc
   return {
-    src: image,
+    src: project.image,
     width: meta.width / scale,
     height: meta.height / scale,
   };
 };
 
-const random = (min = 250, max = 800) => {
+const random = (min = 300, max = 500) => {
   let num = Math.random() * (max - min) + min;
 
   return Math.round(num);
