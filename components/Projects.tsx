@@ -14,53 +14,41 @@ export type Props = {
   projects: IProject[];
 };
 
+type ProjectPair = [IProject, IProject] | [IProject, undefined];
+
 export const Projects = ({ projects }: Props) => {
-  const [list1, list2] = projects.reduce(
-    (lists, project, i) => {
-      if (i % 2 === 0) lists[0].push(project);
-      else lists[1].push(project);
+  const pairs = projects.reduce(function (result, value, index, array) {
+    if (index % 2 === 0) {
+      result.push(array.slice(index, index + 2) as ProjectPair);
+    }
 
-      return lists;
-    },
-    [[], []] as IProject[][]
-  );
-
-  // wrong order when mobile
-  // check media query and add mt?
+    return result;
+  }, [] as ProjectPair[]);
 
   return (
-    // add mt for sm screens and <lg
-    <div className="flex flex-col lg:flex-row lg:mt-24">
-      <div className="flex flex-1">
-        <ProjectList projects={list1} />
-      </div>
+    <div className="w-5/6 mx-auto">
+      {pairs.map(([project1, project2], i) => (
+        <div
+          className={"flex flex-col items-center lg:flex-row"}
+          key={`${project1.slug}-${project2?.slug}`}
+        >
+          <div
+            className={`flex flex-1 ${i === 0 ? "" : "mt-12"} ${
+              project2 ? "justify-end" : "justify-center"
+            }`}
+          >
+            {/* <div className={`flex flex-1 justify-end mt-12`}> */}
+            <ProjectPreview project={project1} />
+          </div>
 
-      <div className="flex flex-1 lg:mt-12 lg:ml-24 ">
-        <ProjectList projects={list2} isRightColumn />
-      </div>
-    </div>
-  );
-};
-
-const ProjectList = ({
-  projects,
-  isRightColumn = false,
-}: {
-  projects: IProject[];
-  isRightColumn?: boolean;
-}) => {
-  return (
-    <ol
-      className={`flex flex-1 flex-col items-center lg:${
-        isRightColumn ? "items-start" : "items-end"
-      }`}
-    >
-      {projects.map((project) => (
-        <li key={project.slug}>
-          <ProjectPreview project={project} />
-        </li>
+          {project2 && (
+            <div className={`flex flex-1 mt-12 lg:ml-12`}>
+              <ProjectPreview project={project2} />
+            </div>
+          )}
+        </div>
       ))}
-    </ol>
+    </div>
   );
 };
 
@@ -73,7 +61,7 @@ const ProjectPreview = ({ project }: { project: IProject }) => {
         <img src={src} alt={project.title} style={{ width }} />
 
         {/* /TODO: Shown only on mobile? */}
-        {project.title}
+        {/* {project.title} */}
       </a>
     </Link>
   );
