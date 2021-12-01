@@ -10,8 +10,7 @@ export type Props = {
   mdx: MDXRemoteSerializeResult;
 };
 
-// src USE resized dir
-// append srcset etcccc
+// TODO: IMAGE ATTRIBUTES
 const components = {
   img: (image: any) => (
     <img src={image.src} alt={image.alt} height="200" width="200" />
@@ -20,12 +19,14 @@ const components = {
 
 export const Project = ({ project, mdx }: Props) => {
   return (
-    <article>
+    <article className="flex flex-col items-center">
       <header>
-        <h1 className="text-2xl">{project.title}</h1>
+        <h1 className="mt-8 text-2xl">{project.title}</h1>
       </header>
 
-      <main className="flex flex-col items-center">
+      <img src={project.image} alt={project.title} className="mt-8 lg:w-3/6" />
+
+      <main className="mt-8">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>
