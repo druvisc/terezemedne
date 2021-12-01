@@ -13,8 +13,7 @@ const QUALITY = 80;
 const SIZES = [768, 992, 1200, 1920, 3840];
 
 // TODO: jpeg...png...webp...
-// TODO: DO NOT UPSCALE
-// TODO: How does srcset work then? Create json file? <-- for dimensions etc
+// TODO: DO NOT UPSCALE ?
 
 const purgeResized = (dir) => {
   const files = fs.readdirSync(dir);

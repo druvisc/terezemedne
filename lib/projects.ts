@@ -12,7 +12,6 @@ export type IProject = {
   readonly title: string;
   readonly date: string;
   readonly image: IProjectImage;
-  readonly imageDimensions: string;
   readonly content: string;
 };
 
@@ -43,7 +42,7 @@ class Projects {
 
       // TODO: Remove number parsing from schema.
       const {
-        data: { slug, title, date, image, imageDimensions },
+        data: { slug, title, date, image },
         content,
       } = matter(source, {
         engines: {
@@ -56,7 +55,6 @@ class Projects {
         title,
         date,
         image,
-        // imageDimensions,
         content,
       } as IProject;
 
