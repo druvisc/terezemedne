@@ -10,6 +10,8 @@ export type Props = {
   mdx: MDXRemoteSerializeResult;
 };
 
+// src USE resized dir
+// append srcset etcccc
 const components = {
   img: (image: any) => (
     <img src={image.src} alt={image.alt} height="200" width="200" />
