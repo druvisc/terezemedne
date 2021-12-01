@@ -8,7 +8,7 @@ import type { IProject } from "../lib/projects";
 import useScreenSize from "../hooks/useScreenSize";
 
 import imageMeta from "../public/images/meta.json";
-
+import { WIDTHS } from "../constants/sharp";
 // TODO: Lazy loading
 
 export type Props = {
@@ -80,7 +80,7 @@ const ProjectList = ({
   return (
     <ol>
       {projects.map((project, i) => {
-        const { src, width, height } = imageSizes[project.image];
+        const attrs = imageSizes[project.image];
 
         return (
           <li key={project.slug} className={cx({ "mt-8": i !== 0 })}>
@@ -91,7 +91,7 @@ const ProjectList = ({
                   "lg:items-start": !isLeftColumn,
                 })}
               >
-                <img src={src} alt={project.title} />
+                <img alt={project.title} {...attrs} />
 
                 {isMobile && <h2 className="mt-4">{project.title}</h2>}
               </a>
@@ -103,19 +103,35 @@ const ProjectList = ({
   );
 };
 
-const getImageAttributes = (project: IProject) => {
-  const meta = imageMeta[project.image];
-  if (!meta)
-    throw new Error(`Missing image meta for image "${project.image}"!`);
+const imageLoader = ({ src, width }: { src: string; width: number }) => {
+  const split = src.split(".");
+  const ext = split[split.length - 1];
+
+  const img = `${split
+    .slice(0, split.length - 1)
+    .join(".")
+    .replace("uploads", "resized")}-${width}.${ext}`;
+
+  return img;
+};
+
+const getImageAttributes = ({ image: src }: IProject) => {
+  const meta = imageMeta[src];
+  if (!meta) {
+    throw new Error(`Missing image meta for image "${src}"!`);
+  }
 
   const randomWidth = random();
   const scale = meta.width / randomWidth;
 
-  // change src etc
   return {
-    src: project.image,
     width: meta.width / scale,
     height: meta.height / scale,
+    sizes: "100vw",
+    srcSet: WIDTHS.map(
+      (width) => `${imageLoader({ src, width })} ${width}w`
+    ).join(", "),
+    src: imageLoader({ src, width: WIDTHS[WIDTHS.length - 1] }),
   };
 };
 

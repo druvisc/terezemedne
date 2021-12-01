@@ -10,8 +10,7 @@ const RESIZED = "./public/images/resized";
 const META = "./public/images/meta.json";
 
 const QUALITY = 80;
-const SIZES = [768, 992, 1200, 1920, 3840];
-
+const WIDTHS = [768, 992, 1200, 1920, 3840];
 // TODO: jpeg...png...webp...
 // TODO: DO NOT UPSCALE ?
 
@@ -61,4 +60,4 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
   await resizeDir(imageDir, resizedDir, sizes, quality);
 };
 
-resize(UPLOADS, RESIZED, SIZES, QUALITY);
+resize(UPLOADS, RESIZED, WIDTHS, QUALITY);
