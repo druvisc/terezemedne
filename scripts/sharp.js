@@ -31,16 +31,16 @@ const resizeDir = async (dir, destDir, sizes, quality) => {
 
   await Promise.all(
     fromFiles.map(async (file) => {
-      const uri = `${dir}/${file}?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048&format=webp`;
+      const uri = `${dir}/${file}`;
       // Re-size multiple directories in one go.
       // const stats = fs.statSync(uri)
       // if (stats.isDirectory()) return resizeDir(uri, `${dest}/${file}`, sizes)
 
-      meta[uri] = await sizeOf(uri);
+      meta[`/${uri.split("/").slice(2).join("/")}`] = await sizeOf(uri);
 
-      // return Promise.all(
-      //   sizes.map((size) => resizeImg(uri, destDir, size, quality))
-      // );
+      return Promise.all(
+        sizes.map((size) => resizeImg(uri, destDir, size, quality))
+      );
     })
   );
 

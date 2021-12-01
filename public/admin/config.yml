@@ -33,6 +33,8 @@ collections:
           widget: "markdown"
 
   - name: "project"
+    editor:
+      preview: false
     identifier_field: slug
     label: "Project"
     folder: "content/projects"
