@@ -16,6 +16,7 @@ export type Props = {
 
 type ProjectPair = [IProject, IProject] | [IProject, undefined];
 
+// add lazy loading
 export const Projects = ({ projects }: Props) => {
   const pairs = projects.reduce(function (result, value, index, array) {
     if (index % 2 === 0) {
@@ -33,9 +34,7 @@ export const Projects = ({ projects }: Props) => {
           key={`${project1.slug}-${project2?.slug}`}
         >
           <div
-            className={`flex flex-1 ${i === 0 ? "" : "mt-12"} ${
-              project2 ? "justify-end" : "justify-center"
-            }`}
+            className={`flex flex-1 ${i === 0 ? "" : "mt-12"} "justify-end"`}
           >
             {/* <div className={`flex flex-1 justify-end mt-12`}> */}
             <ProjectPreview project={project1} />
@@ -53,12 +52,12 @@ export const Projects = ({ projects }: Props) => {
 };
 
 const ProjectPreview = ({ project }: { project: IProject }) => {
-  const { src, width } = getImageAttributes(project.image);
+  const { src, width, height } = getImageAttributes(project.image);
 
   return (
     <Link href={`/projects/${project.slug}`}>
       <a className="flex flex-col items-center">
-        <img src={src} alt={project.title} style={{ width }} />
+        <img src={src} alt={project.title} style={{ width, height: "auto" }} />
 
         {/* /TODO: Shown only on mobile? */}
         {/* {project.title} */}
