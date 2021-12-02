@@ -55,7 +55,7 @@ collections:
         name: "date"
         widget: "datetime"
         date_format: "DD.MM.YYYY"
-        time_format: "HH:mm"
+        time_format: false
         picker_utc: false
       - label: "Featured Image"
         name: "image"
@@ -63,3 +63,4 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
+        mode: "rich_text"

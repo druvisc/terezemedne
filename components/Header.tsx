@@ -9,7 +9,7 @@ const Title = <h1 className="uppercase">Terēze Medne</h1>;
 
 export const Header = ({ instagram }: Props) => {
   return (
-    <header className="my-4 flex justify-between">
+    <header className="flex justify-between">
       <Nav />
 
       {instagram ? (

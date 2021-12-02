@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className="my-4 flex flex-col items-center">
+    <footer className="mt-4 flex flex-col items-center">
       <hr
         style={{
           background: "black",

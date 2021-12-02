@@ -26,7 +26,7 @@ export const Projects = ({ projects }: Props) => {
   );
 
   return (
-    <div className="w-5/6 mx-auto my-8">
+    <div className="w-5/6 mx-auto my-4 lg:my-8">
       {isDesktop ? (
         <DesktopList projects={projects} imageSizes={imageSizes} />
       ) : (
@@ -83,7 +83,7 @@ const ProjectList = ({
         const attrs = imageSizes[project.image];
 
         return (
-          <li key={project.slug} className={cx({ "mt-8": i !== 0 })}>
+          <li key={project.slug} className={cx({ "mt-6 lg:mt-8": i !== 0 })}>
             <Link href={`/projects/${project.slug}`}>
               <a
                 className={cx("flex flex-col items-center", {
@@ -93,7 +93,7 @@ const ProjectList = ({
               >
                 <img alt={project.title} {...attrs} />
 
-                {isMobile && <h2 className="mt-4">{project.title}</h2>}
+                {isMobile && <h2 className="mt-2">{project.title}</h2>}
               </a>
             </Link>
           </li>
