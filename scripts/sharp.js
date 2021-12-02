@@ -2,14 +2,10 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const { promisify } = require("util");
-const sizeOf = promisify(require("image-size"));
-
 const UPLOADS = "./public/images/uploads";
 const RESIZED = "./public/images/resized";
 const META = "./public/images/meta.json";
 
-const QUALITY = 80;
 const WIDTHS = [768, 992, 1200, 1920, 3840];
 // TODO: jpeg...png...webp...
 // TODO: DO NOT UPSCALE ?
@@ -22,7 +18,7 @@ const purgeResized = (dir) => {
   }
 };
 
-const resizeDir = async (dir, destDir, sizes, quality) => {
+const resizeDir = async (dir, destDir, sizes) => {
   // Ignore hidden files.
   const fromFiles = fs.readdirSync(dir).filter((file) => file[0] !== ".");
   const meta = {};
@@ -34,11 +30,11 @@ const resizeDir = async (dir, destDir, sizes, quality) => {
       // const stats = fs.statSync(uri)
       // if (stats.isDirectory()) return resizeDir(uri, `${dest}/${file}`, sizes)
 
-      meta[`/${uri.split("/").slice(2).join("/")}`] = await sizeOf(uri);
+      const { width, height, format } = await sharp(uri).metadata();
 
-      return Promise.all(
-        sizes.map((size) => resizeImg(uri, destDir, size, quality))
-      );
+      meta[`/${uri.split("/").slice(2).join("/")}`] = { width, height, format };
+
+      return Promise.all(sizes.map((size) => resizeImg(uri, destDir, size)));
     })
   );
 
@@ -47,11 +43,11 @@ const resizeDir = async (dir, destDir, sizes, quality) => {
   });
 };
 
-const resizeImg = (src, destDir, size, quality) => {
+const resizeImg = (src, destDir, size) => {
   const file = path.parse(src);
   const dest = `${destDir}/${file.name}-${size}${file.ext}`;
 
-  return sharp(src).resize({ width: size }).jpeg({ quality }).toFile(dest);
+  return sharp(src).resize(size).toFile(dest);
 };
 
 const resize = async (imageDir, resizedDir, sizes, quality) => {
@@ -60,4 +56,4 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
   await resizeDir(imageDir, resizedDir, sizes, quality);
 };
 
-resize(UPLOADS, RESIZED, WIDTHS, QUALITY);
+resize(UPLOADS, RESIZED, WIDTHS);

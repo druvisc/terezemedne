@@ -42,7 +42,7 @@ const DesktopList = ({ projects }: { projects: IProject[] }) => {
         <ProjectList projects={list1} isLeftColumn />
       </div>
 
-      <div className="flex flex-1 ml-12">
+      <div className="flex flex-1 mt-8 ml-12">
         <ProjectList projects={list2} />
       </div>
     </div>
@@ -57,12 +57,6 @@ const ProjectList = ({
   isLeftColumn?: boolean;
 }) => {
   const { isMobile } = useScreenSize();
-
-  const ProjectLink: React.FC<{ slug: string }> = ({ slug, children }) => (
-    <Link href={`/projects/${slug}`}>
-      <a>{children}</a>
-    </Link>
-  );
 
   return (
     <ol>
@@ -95,3 +89,9 @@ const ProjectList = ({
     </ol>
   );
 };
+
+const ProjectLink: React.FC<{ slug: string }> = ({ slug, children }) => (
+  <Link href={`/projects/${slug}`}>
+    <a>{children}</a>
+  </Link>
+);
