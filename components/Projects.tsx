@@ -58,22 +58,38 @@ const ProjectList = ({
 }) => {
   const { isMobile } = useScreenSize();
 
+  const ProjectLink: React.FC<{ slug: string }> = ({ slug, children }) => (
+    <Link href={`/projects/${slug}`}>
+      <a>{children}</a>
+    </Link>
+  );
+
   return (
     <ol>
       {projects.map((project, i) => (
-        <li key={project.slug} className={cx({ "mt-6 lg:mt-8": i !== 0 })}>
-          <Link href={`/projects/${project.slug}`}>
-            <a
-              className={cx("flex flex-col items-center", {
-                "lg:items-end": isLeftColumn,
-                "lg:items-start": !isLeftColumn,
-              })}
-            >
-              <RandomWidthImage src={project.image} alt={project.title} />
+        <li
+          key={project.slug}
+          className={cx("flex flex-col items-center", {
+            "mt-6 lg:mt-8": i !== 0,
+            "lg:items-end": isLeftColumn,
+            "lg:items-start": !isLeftColumn,
+          })}
+        >
+          <ProjectLink slug={project.slug}>
+            <RandomWidthImage
+              className="inline-block"
+              src={project.image}
+              alt={project.title}
+            />
+          </ProjectLink>
 
-              {isMobile && <h2 className="mt-2">{project.title}</h2>}
-            </a>
-          </Link>
+          {isMobile && (
+            <div className="mt-2 inline-block">
+              <ProjectLink slug={project.slug}>
+                <h2>{project.title}</h2>
+              </ProjectLink>
+            </div>
+          )}
         </li>
       ))}
     </ol>
