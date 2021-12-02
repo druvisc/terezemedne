@@ -1,16 +1,41 @@
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
-
 const urlSlug = require("url-slug");
+
+// const imageLoader = ({ src, width }) => {
+//   const split = src.split(".");
+//   const ext = split[split.length - 1];
+
+//   console.log("src:", src);
+//   const img =
+//     // Resized dir.
+//     `/images/resized/${
+//       // Remove ext.
+//       split.slice(0, split.length - 1).join(".")
+//     }-${width}.${ext}`;
+
+//   console.log("img:", img);
+
+//   return img;
+// };
+
+const imageLoader = ({ src, width }) => {
+  const split = src.split(".");
+  const ext = split[split.length - 1];
+  const fileName = split.slice(0, split.length - 1).join(".");
+
+  // Map uploaded image to resized image.
+  const img = `${fileName.replace("uploads", "resized")}-${width}.${ext}`;
+
+  return img;
+};
 
 const UPLOADS = "./public/images/uploads";
 const RESIZED = "./public/images/resized";
-const META = "./public/images/meta.json";
+const IMAGE_ATTRIBUTES = "./public/images/attributes.json";
 
 const WIDTHS = [768, 992, 1200, 1920, 3840];
-// TODO: jpeg...png...webp...
-// TODO: DO NOT UPSCALE ?
 
 const purgeResized = (dir) => {
   const files = fs.readdirSync(dir);
@@ -22,42 +47,53 @@ const purgeResized = (dir) => {
 
 const resizeDir = async (dir, destDir, sizes) => {
   // Ignore hidden files.
-  const fromFiles = fs.readdirSync(dir).filter((file) => file[0] !== ".");
-  const meta = {};
+  const images = fs.readdirSync(dir).filter((image) => image[0] !== ".");
+  const imageAttributes = {};
 
   await Promise.all(
-    fromFiles.map(async (file) => {
-      const uri = `${dir}/${file}`;
-      // Re-size multiple directories in one go.
-      // const stats = fs.statSync(uri)
-      // if (stats.isDirectory()) return resizeDir(uri, `${dest}/${file}`, sizes)
+    images.map(async (image) => {
+      const uri = `${dir}/${image}`;
+      const parsed = path.parse(uri);
+      const imageNameSplit = parsed.name.split("/");
+      const slugName = urlSlug(imageNameSplit[imageNameSplit.length - 1]);
+      // const newName = `${}.${
+      //   parsed.ext
+      // }`;
 
-      const { width, height, format } = await sharp(uri).metadata();
+      // See config.yml "public_folder".
+      const publicUri = uri.replace("./public", "");
 
-      meta[`/${uri.split("/").slice(2).join("/")}`] = {
+      const { width, height } = await sharp(uri).metadata();
+
+      imageAttributes[publicUri] = {
         width,
         height,
-        format,
         srcSet: WIDTHS.map(
-          (width) => `${imageLoader({ src, width })} ${width}w`
+          (width) =>
+            `/images/resized/${slugName}-${width}${parsed.ext} ${width}w`
         ).join(", "),
-        src: imageLoader({ src, width: WIDTHS[WIDTHS.length - 1] }),
+        src: `/images/resized/${slugName}-${WIDTHS[WIDTHS.length - 1]}${
+          parsed.ext
+        }`,
       };
 
-      return Promise.all(sizes.map((size) => resizeImg(uri, destDir, size)));
+      return Promise.all(
+        sizes.map((size) =>
+          sharp(uri)
+            .resize(size)
+            .toFile(`./public/images/resized/${slugName}-${size}${parsed.ext}`)
+        )
+      );
     })
   );
 
-  return fs.writeFile(META, JSON.stringify(meta), (err) => {
-    //
-  });
-};
-
-const resizeImg = (src, destDir, size) => {
-  const file = path.parse(src);
-  const dest = `${destDir}/${file.name}-${size}${file.ext}`;
-
-  return sharp(src).resize(size).toFile(dest);
+  return fs.writeFile(
+    IMAGE_ATTRIBUTES,
+    JSON.stringify(imageAttributes),
+    (err) => {
+      //
+    }
+  );
 };
 
 const resize = async (imageDir, resizedDir, sizes, quality) => {

@@ -5,7 +5,7 @@ import React, { ImgHTMLAttributes } from "react";
 
 import { randomInt } from "../utils";
 
-import ImageAttributes from "../public/images/meta.json";
+import ImageAttributes from "../public/images/attributes.json";
 
 const MIN_RANDOM_WIDTH = 300;
 const MAX_RANDOM_WIDTH = 500;
@@ -31,13 +31,6 @@ export const Image = React.memo(({ src, randomWidth, ...rest }: Props) => {
     (attrs.height as number) /= scale;
   }
 
-  return (
-    <img
-      {...rest}
-      {...attrs}
-      // "src" has to be last.
-      src={src}
-    />
-  );
+  return <img {...rest} {...attrs} />;
 });
-Image.displayName = "RandomWidthImage";
+Image.displayName = "Image";
