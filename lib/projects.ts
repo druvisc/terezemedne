@@ -39,7 +39,8 @@ class Projects {
     const projects = fileNames.map((fileName) => {
       const fullPath = path.join(this.dir, fileName);
       const source = fs.readFileSync(fullPath, "utf8");
-      const slug = fileName.split(".").slice(0, -2).join(".");
+
+      const slug = fileName.split(".").slice(0, -1).join(".");
 
       // TODO: Remove number parsing from schema.
       const {

@@ -26,7 +26,7 @@ export const Projects = ({ projects }: Props) => {
   );
 
   return (
-    <div className="w-5/6 mx-auto my-4 lg:my-8">
+    <div className="w-5/6 mx-auto my-4 lg:my-12">
       {isDesktop ? (
         <DesktopList projects={projects} imageSizes={imageSizes} />
       ) : (
