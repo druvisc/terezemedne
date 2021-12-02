@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
+const urlSlug = require("url-slug");
+
 const UPLOADS = "./public/images/uploads";
 const RESIZED = "./public/images/resized";
 const META = "./public/images/meta.json";
@@ -32,7 +34,15 @@ const resizeDir = async (dir, destDir, sizes) => {
 
       const { width, height, format } = await sharp(uri).metadata();
 
-      meta[`/${uri.split("/").slice(2).join("/")}`] = { width, height, format };
+      meta[`/${uri.split("/").slice(2).join("/")}`] = {
+        width,
+        height,
+        format,
+        srcSet: WIDTHS.map(
+          (width) => `${imageLoader({ src, width })} ${width}w`
+        ).join(", "),
+        src: imageLoader({ src, width: WIDTHS[WIDTHS.length - 1] }),
+      };
 
       return Promise.all(sizes.map((size) => resizeImg(uri, destDir, size)));
     })

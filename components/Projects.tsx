@@ -4,9 +4,10 @@ import cx from "classnames";
 
 import type { IProject } from "../lib/projects";
 import useScreenSize from "../hooks/useScreenSize";
-import { RandomWidthImage } from "../components/Image";
+import { Image } from "../components/Image";
 
 // TODO: Lazy loading
+// TODO: Add glitch effect if possible.
 
 export type Props = {
   projects: IProject[];
@@ -70,8 +71,9 @@ const ProjectList = ({
           })}
         >
           <ProjectLink slug={project.slug}>
-            <RandomWidthImage
+            <Image
               className="inline-block"
+              randomWidth
               src={project.image}
               alt={project.title}
             />
