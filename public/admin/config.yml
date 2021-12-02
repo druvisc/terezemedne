@@ -48,8 +48,6 @@ collections:
         name: "layout"
         widget: "hidden"
         default: "project"
-      - label: "Slug"
-        name: "slug"
         widget: "string"
       - label: "Title"
         name: "title"
@@ -57,9 +55,13 @@ collections:
       - label: "Publish Date"
         name: "date"
         widget: "datetime"
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        picker_utc: false
       - label: "Featured Image"
         name: "image"
         widget: "image"
       - label: "Body"
         name: "body"
         widget: "markdown"
+        
