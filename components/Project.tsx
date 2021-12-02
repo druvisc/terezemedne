@@ -5,15 +5,16 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 
 import type { IProject } from "../lib/projects";
 
+import { Image, ImageSrc } from "../components/Image";
+
 export type Props = {
   project: IProject;
   mdx: MDXRemoteSerializeResult;
 };
 
-// TODO: IMAGE ATTRIBUTES
 const components = {
-  img: (image: any) => (
-    <img src={image.src} alt={image.alt} height="200" width="200" />
+  img: ({ src, alt }: { src: ImageSrc; alt?: string }) => (
+    <Image className="mt-8 lg:w-3/6" src={src} alt={alt} />
   ),
 };
 

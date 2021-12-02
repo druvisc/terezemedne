@@ -3,19 +3,16 @@ import path from "path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
 
-import imageMeta from "../public/images/meta.json";
-
-export type IProjectImage = keyof typeof imageMeta;
+import { ImageSrc } from "../components/Image";
 
 export type IProject = {
   readonly slug: string;
   readonly title: string;
   readonly date: string;
-  readonly image: IProjectImage;
+  readonly image: ImageSrc;
   readonly content: string;
 };
 
-// TODO: Use slug with date in filename, but listing staticpaths, map to only slug.
 class Projects {
   private _data?: IProject[];
   private readonly dir = path.join(process.cwd(), "content/projects");

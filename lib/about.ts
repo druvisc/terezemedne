@@ -18,7 +18,6 @@ class Projects {
       this._data = await this._load();
     }
 
-    console.log("this._data:", this._data);
     return this._data;
   }
 
