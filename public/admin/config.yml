@@ -48,7 +48,6 @@ collections:
         name: "layout"
         widget: "hidden"
         default: "project"
-        widget: "string"
       - label: "Title"
         name: "title"
         widget: "string"
@@ -64,4 +63,3 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
-        
