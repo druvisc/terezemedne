@@ -3,39 +3,13 @@ const path = require("path");
 const sharp = require("sharp");
 const urlSlug = require("url-slug");
 
-// const imageLoader = ({ src, width }) => {
-//   const split = src.split(".");
-//   const ext = split[split.length - 1];
-
-//   console.log("src:", src);
-//   const img =
-//     // Resized dir.
-//     `/images/resized/${
-//       // Remove ext.
-//       split.slice(0, split.length - 1).join(".")
-//     }-${width}.${ext}`;
-
-//   console.log("img:", img);
-
-//   return img;
-// };
-
-const imageLoader = ({ src, width }) => {
-  const split = src.split(".");
-  const ext = split[split.length - 1];
-  const fileName = split.slice(0, split.length - 1).join(".");
-
-  // Map uploaded image to resized image.
-  const img = `${fileName.replace("uploads", "resized")}-${width}.${ext}`;
-
-  return img;
-};
-
 const UPLOADS = "./public/images/uploads";
 const RESIZED = "./public/images/resized";
 const IMAGE_ATTRIBUTES = "./public/images/attributes.json";
 
 const WIDTHS = [768, 992, 1200, 1920, 3840];
+
+const PARSED_EXT = ".jpg";
 
 const purgeResized = (dir) => {
   const files = fs.readdirSync(dir);
@@ -56,9 +30,6 @@ const resizeDir = async (dir, destDir, sizes) => {
       const parsed = path.parse(uri);
       const imageNameSplit = parsed.name.split("/");
       const slugName = urlSlug(imageNameSplit[imageNameSplit.length - 1]);
-      // const newName = `${}.${
-      //   parsed.ext
-      // }`;
 
       // See config.yml "public_folder".
       const publicUri = uri.replace("./public", "");
@@ -70,10 +41,12 @@ const resizeDir = async (dir, destDir, sizes) => {
         height,
         srcSet: WIDTHS.map(
           (width) =>
-            `/images/resized/${slugName}-${width}${parsed.ext} ${width}w`
+            // `/images/resized/${slugName}-${width}${parsed.ext} ${width}w`
+            `/images/resized/${slugName}-${width}${PARSED_EXT} ${width}w`
         ).join(", "),
         src: `/images/resized/${slugName}-${WIDTHS[WIDTHS.length - 1]}${
-          parsed.ext
+          // parsed.ext
+          PARSED_EXT
         }`,
       };
 
@@ -81,7 +54,9 @@ const resizeDir = async (dir, destDir, sizes) => {
         sizes.map((size) =>
           sharp(uri)
             .resize(size)
-            .toFile(`./public/images/resized/${slugName}-${size}${parsed.ext}`)
+            .jpeg()
+            // .toFile(`./public/images/resized/${slugName}-${size}${parsed.ext}`)
+            .toFile(`./public/images/resized/${slugName}-${size}${PARSED_EXT}`)
         )
       );
     })
