@@ -15,9 +15,13 @@ export type Props = {
 
 // TODO: Gallery component?
 const components = {
-  YouTube,
+  YouTube: (props: any) => (
+    <div className="my-8 flex justify-center">
+      <YouTube {...props} />
+    </div>
+  ),
   img: ({ src, alt }: { src: ImageSrc; alt?: string }) => (
-    <Image className="mt-8 w-full" src={src} alt={alt} />
+    <Image className="my-4 w-full" src={src} alt={alt} />
   ),
 };
 
@@ -27,10 +31,10 @@ export const Project = ({ project, mdx }: Props) => {
       <components.img src={project.image} alt={project.title} />
 
       {project.technique && (
-        <div className="my-2 text-xs text-gray-500">{project.technique}</div>
+        <div className="mb-4 text-xs text-gray-500">{project.technique}</div>
       )}
 
-      <main className="px-4 mt-8">
+      <main className="mt-4 px-4">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>
