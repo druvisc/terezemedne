@@ -36,9 +36,6 @@ const Nav = () => {
         <li className="ml-4">
           <Link href="/about">About</Link>
         </li>
-        <li className="ml-4">
-          <Link href="/empty">Empty</Link>
-        </li>
       </ol>
     </nav>
   );

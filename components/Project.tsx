@@ -2,6 +2,7 @@
 
 import React from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import YouTube from "react-youtube";
 
 import type { IProject } from "../lib/projects";
 
@@ -12,22 +13,24 @@ export type Props = {
   mdx: MDXRemoteSerializeResult;
 };
 
+// TODO: Gallery component?
 const components = {
+  YouTube,
   img: ({ src, alt }: { src: ImageSrc; alt?: string }) => (
-    <Image className="mt-8 lg:w-3/6" src={src} alt={alt} />
+    <Image className="mt-8 w-full" src={src} alt={alt} />
   ),
 };
 
 export const Project = ({ project, mdx }: Props) => {
   return (
     <article className="flex flex-col items-center">
-      <header>
-        <h1 className="mt-8 text-2xl">{project.title}</h1>
-      </header>
+      <components.img src={project.image} alt={project.title} />
 
-      <img src={project.image} alt={project.title} className="mt-8 lg:w-3/6" />
+      {project.technique && (
+        <div className="my-2 text-xs text-gray-500">{project.technique}</div>
+      )}
 
-      <main className="mt-8">
+      <main className="px-4 mt-8">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>

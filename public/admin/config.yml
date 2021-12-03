@@ -60,6 +60,10 @@ collections:
       - label: "Featured Image"
         name: "image"
         widget: "image"
+      - label: "Technique"
+        name: "technique"
+        optional: true
+        widget: "string"
       - label: "Body"
         name: "body"
         widget: "markdown"

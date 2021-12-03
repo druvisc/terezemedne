@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className="mt-4 flex flex-col items-center">
+    <footer className="flex flex-col items-center">
       <hr
         style={{
           background: "black",
@@ -12,9 +12,9 @@ export const Footer = () => {
         }}
       />
 
-      <span className="my-2 text-xs">
+      <div className="my-2 text-xs">
         &copy; {new Date().getFullYear()} Terēze Medne. All rights reserved.
-      </span>
+      </div>
     </footer>
   );
 };

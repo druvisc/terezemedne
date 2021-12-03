@@ -10,6 +10,7 @@ export type IProject = {
   readonly title: string;
   readonly date: string;
   readonly image: ImageSrc;
+  readonly technique?: string;
   readonly content: string;
 };
 
@@ -39,12 +40,13 @@ class Projects {
 
       const slug = fileName.split(".").slice(0, -1).join(".");
 
-      // TODO: Remove number parsing from schema.
       const {
-        data: { title, date, image },
+        data: { title, date, image, technique = "" },
         content,
       } = matter(source, {
         engines: {
+          // TODO: Remove number parsing from schema.
+          // TODO: Shitty engine doesn't change undefined to null.
           yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
         },
       });
@@ -54,6 +56,7 @@ class Projects {
         title,
         date,
         image,
+        technique,
         content,
       } as IProject;
 
