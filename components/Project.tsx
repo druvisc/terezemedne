@@ -49,7 +49,7 @@ export const Project = ({ project, mdx }: Props) => {
         <div className="text-xs text-gray-500">{project.technique}</div>
       )}
 
-      <main className="mt-8 px-4">
+      <main className="lg:mt-8 px-4">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>

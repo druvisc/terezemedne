@@ -83,7 +83,7 @@ const ProjectList = ({
 
           <div
             className={cx("mt-2", {
-              invisible: !isMobile || hoveredProject !== project.slug,
+              invisible: !isMobile && hoveredProject !== project.slug,
             })}
           >
             <ProjectLink slug={project.slug}>
