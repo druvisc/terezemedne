@@ -19,7 +19,7 @@ export const Layout = ({ children }: { children: any }) => {
   // pass ig etc to header
   return (
     // Tailwind?
-    <div className="font-serif px-4 max-w-5xl w-full h-full mx-auto flex flex-col center-items">
+    <div className="px-4 max-w-5xl w-full h-full mx-auto flex flex-col center-items">
       <div className="py-4">
         <Header instagram={instagram} />
       </div>

@@ -10,6 +10,7 @@ export type IProject = {
   readonly title: string;
   readonly date: string;
   readonly image: ImageSrc;
+  readonly youtubeId?: string;
   readonly technique?: string;
   readonly content: string;
 };
@@ -41,7 +42,7 @@ class Projects {
       const slug = fileName.split(".").slice(0, -1).join(".");
 
       const {
-        data: { title, date, image, technique = "" },
+        data: { title, date, image, youtubeId = "", technique = "" },
         content,
       } = matter(source, {
         engines: {
@@ -56,6 +57,7 @@ class Projects {
         title,
         date,
         image,
+        youtubeId,
         technique,
         content,
       } as IProject;

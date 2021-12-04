@@ -6,7 +6,7 @@ import type { IProject } from "../lib/projects";
 import useScreenSize from "../hooks/useScreenSize";
 import { Image } from "../components/Image";
 
-// TODO: Lazy loading
+// TODO: Lazy loading + sequential loading with fade ins?
 // TODO: Add glitch effect if possible.
 
 export type Props = {

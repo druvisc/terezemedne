@@ -13,9 +13,9 @@ export const About = ({ about, mdx }: Props) => {
   return (
     <article>
       <main>
-        <MDXRemote {...mdx} />
+        {/* <MDXRemote {...mdx} />
 
-        <div>insta: {about.instagram}</div>
+        <div>insta: {about.instagram}</div> */}
       </main>
     </article>
   );
