@@ -24,7 +24,7 @@ const components = {
         opts={{
           playerVars: {
             modestbranding: 1, // Doesn't work.
-            controls: 0, // Removes the possibility to change volume.
+            // controls: 0, // Removes the possibility to change volume.
             rel: 0, // Do not display related videos (only same channel).
           },
         }}
@@ -51,7 +51,7 @@ export const Project = ({ project, mdx }: Props) => {
         <div className="text-xs text-gray-500">{project.technique}</div>
       )}
 
-      <main className="lg:mt-8 px-4">
+      <main className="mt-2 lg:mt-8 px-4">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>

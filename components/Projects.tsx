@@ -66,7 +66,7 @@ const ProjectList = ({
         <li
           key={project.slug}
           className={cx("flex flex-col items-center", {
-            "mt-6 lg:mt-8": i !== 0,
+            "mt-6": i !== 0,
             "lg:items-end": isLeftColumn,
             "lg:items-start": !isLeftColumn,
           })}
@@ -82,7 +82,7 @@ const ProjectList = ({
           </ProjectLink>
 
           <div
-            className={cx("mt-2 w-full", {
+            className={cx("mt-2", {
               invisible: !isMobile && hoveredProject !== project.slug,
             })}
           >
