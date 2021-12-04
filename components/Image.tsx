@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 
-import React, { ImgHTMLAttributes } from "react";
+import React, { ImgHTMLAttributes, useEffect } from "react";
 
 import { randomInt } from "../utils";
 
@@ -17,20 +17,22 @@ export type Props = ImgHTMLAttributes<HTMLImageElement> & {
   randomWidth?: boolean;
 };
 
-export const Image = React.memo(({ src, randomWidth, ...rest }: Props) => {
+export const Image = ({ src, randomWidth, ...rest }: Props) => {
   const attrs = ImageAttributes[src];
   if (!attrs) {
     throw new Error(`Missing attributes for image "${src}"!`);
   }
 
-  if (randomWidth) {
-    const width = randomInt(MIN_RANDOM_WIDTH, MAX_RANDOM_WIDTH);
-    const scale = (attrs.width as number) / width;
+  useEffect(() => {
+    if (randomWidth) {
+      const width = randomInt(MIN_RANDOM_WIDTH, MAX_RANDOM_WIDTH);
+      const scale = (attrs.width as number) / width;
 
-    (attrs.width as number) /= scale;
-    (attrs.height as number) /= scale;
-  }
+      (attrs.width as number) /= scale;
+      (attrs.height as number) /= scale;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <img {...rest} {...attrs} />;
-});
-Image.displayName = "Image";
+};

@@ -8,12 +8,13 @@ import type { IProject } from "../lib/projects";
 
 import { Image, ImageSrc } from "../components/Image";
 
+// TODO: How to display 2 sequential images side by side?
+
 export type Props = {
   project: IProject;
   mdx: MDXRemoteSerializeResult;
 };
 
-// TODO: Gallery component?
 const components = {
   YouTube: (props: any) => (
     <div className="my-4 w-full">
@@ -34,7 +35,7 @@ const components = {
     <Image className="my-4 w-full" src={src} alt={alt} />
   ),
 };
-// change top n rest img
+
 export const Project = ({ project, mdx }: Props) => {
   return (
     <article className="lg:my-8 flex flex-col items-center">

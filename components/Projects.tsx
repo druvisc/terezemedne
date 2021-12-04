@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import cx from "classnames";
 
@@ -58,6 +58,7 @@ const ProjectList = ({
   isLeftColumn?: boolean;
 }) => {
   const { isMobile } = useScreenSize();
+  const [hoveredProject, setHoveredProject] = useState<string>();
 
   return (
     <ol>
@@ -72,20 +73,23 @@ const ProjectList = ({
         >
           <ProjectLink slug={project.slug}>
             <Image
-              className="inline-block"
               randomWidth
               src={project.image}
               alt={project.title}
+              onMouseEnter={() => setHoveredProject(project.slug)}
+              onMouseLeave={() => setHoveredProject(undefined)}
             />
           </ProjectLink>
 
-          {isMobile && (
-            <div className="mt-2 inline-block">
-              <ProjectLink slug={project.slug}>
-                <h2>{project.title}</h2>
-              </ProjectLink>
-            </div>
-          )}
+          <div
+            className={cx("mt-2", {
+              invisible: !isMobile || hoveredProject !== project.slug,
+            })}
+          >
+            <ProjectLink slug={project.slug}>
+              <h2 className="text-gray-500">{project.title}</h2>
+            </ProjectLink>
+          </div>
         </li>
       ))}
     </ol>
