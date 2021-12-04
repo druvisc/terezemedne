@@ -82,12 +82,12 @@ const ProjectList = ({
           </ProjectLink>
 
           <div
-            className={cx("mt-2", {
+            className={cx("mt-2 w-full", {
               invisible: !isMobile && hoveredProject !== project.slug,
             })}
           >
             <ProjectLink slug={project.slug}>
-              <h2 className="text-gray-500">{project.title}</h2>
+              <h2 className="text-center text-gray-500">{project.title}</h2>
             </ProjectLink>
           </div>
         </li>

@@ -32,7 +32,9 @@ const components = {
     </div>
   ),
   img: ({ src, alt }: { src: ImageSrc; alt?: string }) => (
-    <Image className="my-4 w-full" src={src} alt={alt} />
+    <div className="my-4">
+      <Image src={src} alt={alt} style={{ width: "auto", maxHeight: "80vh" }} />
+    </div>
   ),
 };
 
