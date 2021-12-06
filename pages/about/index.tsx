@@ -1,10 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
-
 import type { GetStaticProps, NextPage } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 
 import about, { IAbout } from "../../lib/about";
+
 import { About, Props as AboutProps } from "../../components/About";
 
 export const getStaticProps: GetStaticProps = async () => {

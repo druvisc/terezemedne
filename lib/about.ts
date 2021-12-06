@@ -4,14 +4,14 @@ import matter from "gray-matter";
 import yaml from "js-yaml";
 
 export type IAbout = {
-  readonly title: string;
-  readonly instagram: string;
+  readonly fullName: string;
+  readonly image: string;
   readonly content: string;
 };
 
 class Projects {
   private _data?: IAbout;
-  private readonly dir = path.join(process.cwd(), "content/about");
+  private readonly file = path.join(process.cwd(), "content/about.mdx");
 
   public async load(): Promise<IAbout> {
     if (!this._data) {
@@ -22,30 +22,22 @@ class Projects {
   }
 
   private _load(): IAbout {
-    const fileNames = fs.readdirSync(this.dir);
+    const source = fs.readFileSync(this.file, "utf8");
 
-    // Load first file as About.
-    const about = fileNames.map((fileName) => {
-      const fullPath = path.join(this.dir, fileName);
-      const source = fs.readFileSync(fullPath, "utf8");
+    const {
+      data: { fullName, image },
+      content,
+    } = matter(source, {
+      engines: {
+        yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
+      },
+    });
 
-      const {
-        data: { title, instagram },
-        content,
-      } = matter(source, {
-        engines: {
-          yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
-        },
-      });
-
-      return {
-        title,
-        instagram,
-        content,
-      };
-    })[0];
-
-    return about;
+    return {
+      fullName,
+      image,
+      content,
+    };
   }
 }
 

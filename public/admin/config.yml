@@ -6,6 +6,22 @@ media_folder: public/images/uploads
 public_folder: /images/uploads
 
 collections:
+  - name: "social"
+    label: "Social"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "social"
+        label: "Social"
+        file: "content/social.json"
+        description: "Social"
+        fields:
+          - label: "Instagram"
+            name: "instagram"
+            widget: "string"
+            optinal: true
+
   - name: "about"
     label: "About"
     delete: false
@@ -16,18 +32,16 @@ collections:
     files:
       - name: "about"
         label: "About"
-        file: "content/about/about.mdx"
-        description: "About section"
+        file: "content/about.mdx"
+        description: "About"
         fields:
-          - label: "Title"
-            name: "title"
+          - label: "Full Name"
+            name: "fullName"
             widget: "string"
-          - label: "test1"
-            name: "test1"
-            widget: "string"
-          - label: "Instagram"
-            name: "instagram"
-            widget: "string"
+            optinal: true
+          - label: "Image"
+            name: "image"
+            widget: "image"
           - label: "Body"
             name: "body"
             widget: "markdown"

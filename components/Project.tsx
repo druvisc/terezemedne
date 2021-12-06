@@ -8,8 +8,6 @@ import type { IProject } from "../lib/projects";
 
 import { Image, ImageSrc } from "../components/Image";
 
-// TODO: How to display 2 sequential images side by side?
-
 export type Props = {
   project: IProject;
   mdx: MDXRemoteSerializeResult;

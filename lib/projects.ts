@@ -54,8 +54,6 @@ class Projects {
         content,
       } = matter(source, {
         engines: {
-          // TODO: Remove number parsing from schema.
-          // TODO: Shitty engine doesn't change undefined to null.
           yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object,
         },
       });

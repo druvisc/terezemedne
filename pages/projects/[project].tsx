@@ -4,7 +4,6 @@ import { serialize } from "next-mdx-remote/serialize";
 import projects, { IProject } from "../../lib/projects";
 import { Project, Props as ProjectProps } from "../../components/Project";
 
-// TODO: fallback, go to home etc? auto slugs.
 export const getStaticPaths: GetStaticPaths = async () => {
   const list = await projects.load();
 
