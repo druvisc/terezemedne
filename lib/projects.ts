@@ -8,6 +8,7 @@ import { ImageSrc } from "../components/Image";
 export type IProject = {
   readonly slug: string;
   readonly title: string;
+  readonly order?: number;
   readonly date: string;
   readonly image: ImageSrc;
   readonly youtubeId?: string;
@@ -42,7 +43,14 @@ class Projects {
       const slug = fileName.split(".").slice(0, -1).join(".");
 
       const {
-        data: { title, date, image, youtubeId = "", technique = "" },
+        data: {
+          title,
+          order = null,
+          date,
+          image,
+          youtubeId = null,
+          technique = null,
+        },
         content,
       } = matter(source, {
         engines: {
@@ -55,6 +63,7 @@ class Projects {
       const project = {
         slug,
         title,
+        order,
         date,
         image,
         youtubeId,
@@ -66,11 +75,12 @@ class Projects {
     });
 
     return projects.sort((a, b) => {
-      if (a.date < b.date) {
-        return 1;
-      } else {
-        return -1;
-      }
+      if (a.order && b.order) return a.order - b.order;
+      if (a.order || b.order) return 1;
+
+      if (a.date < b.date) return 1;
+
+      return -1;
     });
   }
 }

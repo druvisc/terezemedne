@@ -33,7 +33,12 @@ const components = {
   ),
   img: ({ src, alt }: { src: ImageSrc; alt?: string }) => (
     <div className="my-4">
-      <Image src={src} alt={alt} style={{ width: "auto", maxHeight: "80vh" }} />
+      <Image
+        src={src}
+        alt={alt}
+        className="mx-auto"
+        style={{ width: "auto", maxHeight: "80vh" }}
+      />
     </div>
   ),
 };
@@ -51,7 +56,7 @@ export const Project = ({ project, mdx }: Props) => {
         <div className="text-xs text-gray-500">{project.technique}</div>
       )}
 
-      <main className="mt-2 lg:mt-8 px-4">
+      <main className="mt-4 lg:mt-8 px-4">
         <MDXRemote components={components} {...mdx} />
       </main>
     </article>
