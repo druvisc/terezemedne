@@ -27,6 +27,11 @@ const resizeDir = async (dir, destDir, sizes) => {
   await Promise.all(
     images.map(async (image) => {
       const uri = `${dir}/${image}`;
+
+      const stats = fs.statSync(uri);
+      if (stats.isDirectory())
+        return resizeDir(uri, `/images/resized/${image}`, sizes);
+
       const parsed = path.parse(uri);
       const imageNameSplit = parsed.name.split("/");
       const slugName = urlSlug(imageNameSplit[imageNameSplit.length - 1]);
