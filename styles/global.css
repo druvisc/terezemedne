@@ -11,6 +11,10 @@ body,
   height: 100%;
 }
 
+#__next {
+  overflow-y: scroll;
+}
+
 .youtube-container {
   position: relative;
   width: 100%;
