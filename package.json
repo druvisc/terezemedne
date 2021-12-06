@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "sharp": "node ./scripts/sharp.js",
-    "export": "next build && next export -o ./dist",
+    "export": "npm run sharp && next build && next export -o ./dist",
     "lint": "next lint"
   },
   "dependencies": {

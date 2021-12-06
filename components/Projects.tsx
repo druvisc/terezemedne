@@ -16,7 +16,7 @@ export const Projects = ({ projects }: Props) => {
   const { isDesktop } = useScreenSize();
 
   return (
-    <div className="w-5/6 mx-auto my-4 lg:my-12">
+    <div className="w-5/6 mx-auto">
       {isDesktop ? (
         <DesktopList projects={projects} />
       ) : (
@@ -76,6 +76,7 @@ const ProjectList = ({
               randomWidth
               src={project.image}
               alt={project.title}
+              sizes="50vw"
               onMouseEnter={() => setHoveredProject(project.slug)}
               onMouseLeave={() => setHoveredProject(undefined)}
             />

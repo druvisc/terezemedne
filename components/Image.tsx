@@ -18,8 +18,16 @@ export type Props = ImgHTMLAttributes<HTMLImageElement> & {
   randomWidth?: boolean;
 };
 
-export const Image = ({ src, useOriginal, randomWidth, ...rest }: Props) => {
+export const Image = ({
+  src,
+  sizes = "100vw",
+  useOriginal,
+  randomWidth,
+  ...rest
+}: Props) => {
   const attrs = (ImageAttributes as any)[src] || {};
+  attrs.sizes = sizes;
+
   if (useOriginal) {
     attrs.src = src;
     attrs.srcSet = "";

@@ -24,7 +24,7 @@ export const Layout = ({ children }: { children: any }) => {
         <Header instagram={instagram} />
       </div>
 
-      <main className="flex flex-col flex-1 center-items">{children}</main>
+      <main className="my-4 lg:my-12 flex flex-col flex-1 center-items">{children}</main>
 
       <div className="mt-4">
         <Footer />
