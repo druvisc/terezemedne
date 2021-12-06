@@ -10,16 +10,20 @@ import ImageAttributes from "../public/images/attributes.json";
 const MIN_RANDOM_WIDTH = 300;
 const MAX_RANDOM_WIDTH = 500;
 
-export type ImageSrc = keyof typeof ImageAttributes;
+export type ImageSrc = string; // keyof typeof ImageAttributes;
 
 export type Props = ImgHTMLAttributes<HTMLImageElement> & {
   src: ImageSrc;
+  useOriginal?: boolean;
   randomWidth?: boolean;
 };
 
-export const Image = ({ src, randomWidth, ...rest }: Props) => {
-  const attrs = ImageAttributes[src];
-  if (!attrs) {
+export const Image = ({ src, useOriginal, randomWidth, ...rest }: Props) => {
+  const attrs = (ImageAttributes as any)[src] || {};
+  if (useOriginal) {
+    attrs.src = src;
+    attrs.srcSet = "";
+  } else if (!attrs) {
     throw new Error(`Missing attributes for image "${src}"!`);
   }
 
