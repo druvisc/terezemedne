@@ -9,8 +9,6 @@ const IMAGE_ATTRIBUTES = "./public/images/attributes.json";
 
 const WIDTHS = [768, 992, 1200, 1920, 3840];
 
-const PARSED_EXT = ".jpg";
-
 const purgeResized = (dir) => {
   const files = fs.readdirSync(dir);
 
@@ -42,11 +40,11 @@ const resizeDir = async (dir, destDir, sizes) => {
         srcSet: WIDTHS.map(
           (width) =>
             // `/images/resized/${slugName}-${width}${parsed.ext} ${width}w`
-            `/images/resized/${slugName}-${width}${PARSED_EXT} ${width}w`
+            `/images/resized/${slugName}-${width}${parsed.ext} ${width}w`
         ).join(", "),
         src: `/images/resized/${slugName}-${WIDTHS[WIDTHS.length - 1]}${
           // parsed.ext
-          PARSED_EXT
+          parsed.ext
         }`,
       };
 
@@ -54,9 +52,8 @@ const resizeDir = async (dir, destDir, sizes) => {
         sizes.map((size) =>
           sharp(uri)
             .resize(size)
-            .jpeg()
             // .toFile(`./public/images/resized/${slugName}-${size}${parsed.ext}`)
-            .toFile(`./public/images/resized/${slugName}-${size}${PARSED_EXT}`)
+            .toFile(`./public/images/resized/${slugName}-${size}${parsed.ext}`)
         )
       );
     })
