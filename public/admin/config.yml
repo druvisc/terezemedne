@@ -1,0 +1,91 @@
+backend:
+  name: git-gateway
+  branch: main
+publish_mode: editorial_workflow
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: "social"
+    label: "Social"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "social"
+        label: "Social"
+        file: "content/social.json"
+        description: "Social"
+        fields:
+          - label: "Instagram"
+            name: "instagram"
+            widget: "string"
+            optinal: true
+
+  - name: "about"
+    label: "About"
+    delete: false
+    editor:
+      preview: false
+    format: "frontmatter"
+    extension: "mdx"
+    files:
+      - name: "about"
+        label: "About"
+        file: "content/about.mdx"
+        description: "About"
+        fields:
+          - label: "Full Name"
+            name: "fullName"
+            widget: "string"
+            optinal: true
+          - label: "Image"
+            name: "image"
+            widget: "image"
+          - label: "Body"
+            name: "body"
+            widget: "markdown"
+
+  - name: "project"
+    editor:
+      preview: false
+    identifier_field: slug
+    label: "Project"
+    folder: "content/projects"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "project"
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Order"
+        name: "order"
+        widget: "string"
+        optional: true
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "DD.MM.YYYY"
+        time_format: false
+        picker_utc: false
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+      - label: "YouTube ID"
+        name: "youtubeId"
+        optional: true
+      - label: "Technique"
+        name: "technique"
+        optional: true
+        widget: "string"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        mode: "rich_text"

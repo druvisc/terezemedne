@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
+#__next {
+  font-family: "Roboto", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#__next main {
+  margin-bottom: auto;
+}
+
+.youtube-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+
+.youtube-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.image-contain-height span {
+  max-height: 70vh;
+}
