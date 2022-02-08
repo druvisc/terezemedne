@@ -45,10 +45,10 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
       // !!! FORCE WEBP !!!
       const format = "webp";
 
-      // Do not re-size existing images (can comment out; but saves "build minutes").
-      if (ImageAttributes[publicUri]) {
-        return;
-      }
+      // Do not re-size existing images.
+      // if (ImageAttributes[publicUri]) {
+      //   return;
+      // }
 
       if (format === "webp") {
         transformer.webp({ quality });
