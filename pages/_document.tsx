@@ -17,6 +17,14 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link
+            href="/fonts/Roboto.woff2"
+            as="font"
+            rel="preload"
+            // Necessary to avoid fetching the font twice.
+            crossOrigin=""
+          />
+
           <meta name="theme-color" content="#FFFFFF" />
         </Head>
 

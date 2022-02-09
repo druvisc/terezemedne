@@ -5,14 +5,15 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval';
   connect-src 'self';
   img-src 'self' data:;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/;
-  font-src 'self' https://fonts.gstatic.com/;
+  style-src 'self' 'unsafe-inline';
+  font-src 'self';
   base-uri 'self';
 `;
 
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
+  // optimizeFonts: false,
   productionBrowserSourceMaps: true,
   images: {
     loader: "custom",
