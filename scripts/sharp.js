@@ -18,11 +18,9 @@ const ImageAttributes = require(`.${IMAGE_ATTRIBUTES_URI}`);
 const getPublicUri = (uri) => uri.replace("./public", "");
 
 const resize = async (imageDir, resizedDir, sizes, quality) => {
-  // Purge previously re-sized images.
-  const resizedImageFileNames = fs.readdirSync(resizedDir);
-  for (const fileName of resizedImageFileNames) {
-    fs.unlinkSync(path.join(resizedDir, fileName));
-  }
+  // Remove previously re-sized images.
+  fs.existsSync(resizedDir) && fs.rmSync(resizedDir);
+  fs.mkdirSync(resizedDir);
 
   // Ignore hidden files.
   const imageFileNames = fs
