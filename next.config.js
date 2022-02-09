@@ -14,10 +14,6 @@ const ContentSecurityPolicy = `
 module.exports = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
-  i18n: {
-    locales: ["en-US"],
-    defaultLocale: "en-US",
-  },
   images: {
     loader: "custom",
     deviceSizes: DEVICE_SIZES,
