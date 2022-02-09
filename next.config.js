@@ -2,12 +2,13 @@ const { DEVICE_SIZES, IMAGE_SIZES } = require("./constants");
 
 const ContentSecurityPolicy = `
   default-src 'none';
-  script-src 'self' 'unsafe-eval';
+  base-uri 'self';
   connect-src 'self';
-  img-src 'self' data:;
+  script-src 'self' 'unsafe-eval' www.youtube.com;
   style-src 'self' 'unsafe-inline';
   font-src 'self';
-  base-uri 'self';
+  img-src 'self' data:;
+  frame-src www.youtube.com;
 `;
 
 /** @type {import('next').NextConfig} */
