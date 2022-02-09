@@ -1,17 +1,39 @@
-// "max-width: 80rem (1280px)" is defined on components/Layout,
-// so largest image on a retina screen would be 2560px -
-// let's say 1920px is close enough.
-const DEVICE_SIZES = [768, 992, 1200, 1920];
+const { DEVICE_SIZES, IMAGE_SIZES } = require("./constants");
 
-// Full width, half width.
-const IMAGE_SIZES = DEVICE_SIZES.flatMap((size) => [size / 2]);
+const ContentSecurityPolicy = `
+  default-src 'none';
+  script-src 'self' 'unsafe-eval';
+  connect-src 'self';
+  img-src 'self' data:;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/;
+  font-src 'self' https://fonts.gstatic.com/;
+  base-uri 'self';
+`;
 
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
+  i18n: {
+    locales: ["en-US"],
+    defaultLocale: "en-US",
+  },
   images: {
     loader: "custom",
     deviceSizes: DEVICE_SIZES,
     imageSizes: IMAGE_SIZES,
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
+          },
+        ],
+      },
+    ];
   },
 };

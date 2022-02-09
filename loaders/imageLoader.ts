@@ -1,15 +1,14 @@
-const DEFAULT_WIDTH = "3840";
+import { DEFAULT_IMAGE_WIDTH } from "../constants";
 
 const imageLoader = ({
   src,
   width,
-  // quality = 75,
 }: {
   src: string;
   width: number;
   quality?: number;
 }) => {
-  const loaded = src.replace(DEFAULT_WIDTH, `${width}`);
+  const loaded = src.replace(`${DEFAULT_IMAGE_WIDTH}`, `${width}`);
 
   return loaded;
 };

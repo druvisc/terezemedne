@@ -3,18 +3,16 @@ const path = require("path");
 const sharp = require("sharp");
 const urlSlug = require("url-slug");
 
-const UPLOADS = "./public/images/uploads";
-const RESIZED = "./public/images/resized";
-const QUALITY = 70;
+const {
+  UPLOADS_DIR,
+  RESIZED_DIR,
+  IMAGE_QUALITY,
+  IMAGE_WIDTHS,
+  IMAGE_ATTRIBUTES_URI,
+  DEFAULT_IMAGE_WIDTH,
+} = require("../constants");
 
-// Match next.config.js.
-const DEVICE_SIZES = [768, 992, 1200, 1920];
-const IMAGE_SIZES = DEVICE_SIZES.flatMap((size) => [size / 2]);
-//
-const WIDTHS = [...DEVICE_SIZES, ...IMAGE_SIZES].sort((a, b) => a - b);
-
-const IMAGE_ATTRIBUTES = "./public/images/attributes.json";
-const ImageAttributes = require(`.${IMAGE_ATTRIBUTES}`);
+const ImageAttributes = require(`.${IMAGE_ATTRIBUTES_URI}`);
 
 // See config.yml "public_folder".
 const getPublicUri = (uri) => uri.replace("./public", "");
@@ -68,9 +66,9 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
         // ).join(", "),
 
         // Default to largest width.
-        src: `${getPublicUri(resizedDir)}/${slug}-${
-          sizes[sizes.length - 1]
-        }.${format}`,
+        src: `${getPublicUri(
+          resizedDir
+        )}/${slug}-${DEFAULT_IMAGE_WIDTH}.${format}`,
       };
 
       return Promise.all(
@@ -84,7 +82,7 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
   );
 
   return fs.writeFile(
-    IMAGE_ATTRIBUTES,
+    IMAGE_ATTRIBUTES_URI,
     JSON.stringify(ImageAttributes),
     (err) => {
       if (err) console.log({ err });
@@ -92,4 +90,4 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
   );
 };
 
-resize(UPLOADS, RESIZED, WIDTHS, QUALITY);
+resize(UPLOADS_DIR, RESIZED_DIR, IMAGE_WIDTHS, IMAGE_QUALITY);
