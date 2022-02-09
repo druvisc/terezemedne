@@ -1,19 +1,12 @@
 import React from "react";
 
-export const Footer = () => {
+export const Footer = ({ title }: { title: string }) => {
   return (
     <footer className="flex flex-col items-center">
-      <hr
-        style={{
-          background: "black",
-          color: "black",
-          width: "100%",
-          height: "2px",
-        }}
-      />
+      <hr className="w-full bg-black h-[2px]" />
 
       <div className="my-2 text-xs">
-        &copy; {new Date().getFullYear()} Terēze Medne. All rights reserved.
+        &copy; {new Date().getFullYear()} {title}. All rights reserved.
       </div>
     </footer>
   );
