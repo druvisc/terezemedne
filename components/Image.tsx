@@ -61,7 +61,7 @@ export const Image = ({
       ref={ref}
       className={cx([
         className,
-        "w-full relative",
+        "relative w-full overflow-hidden",
         { "max-h-[70vh]": containHeight },
       ])}
     >
