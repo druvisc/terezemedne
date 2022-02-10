@@ -26,7 +26,7 @@ export const Image = ({
   className,
   src: uploadSrc,
   sizes: sizeMap = {},
-  containHeight = true,
+  containHeight = false,
   objectPosition = "center",
   resizedLoader = defaultResizedLoader,
   ...rest

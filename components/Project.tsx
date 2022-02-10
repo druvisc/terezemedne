@@ -17,7 +17,13 @@ const components = {
   p: ({ children }: any) => <p className="w-full text-center">{children}</p>,
 
   img: ({ src }: ImageProps) => (
-    <Image src={src} alt="" className="my-4" sizes={{ lg: MAX_WIDTH_PX }} />
+    <Image
+      containHeight
+      src={src}
+      alt=""
+      className="my-4"
+      sizes={{ lg: MAX_WIDTH_PX }}
+    />
   ),
 
   YouTube: (props: any) => (
