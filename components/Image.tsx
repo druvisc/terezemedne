@@ -84,7 +84,7 @@ export const Image = ({
           <img
             {...rest}
             {...imgAttributes}
-            alt={rest.alt || ""}
+            alt={""}
             className="absolute inset-0 max-h-full object-contain animate-fade-in"
           />
         </picture>

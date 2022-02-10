@@ -2,9 +2,11 @@ import React from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import YouTube from "react-youtube";
 
+import type { IProject } from "../lib/projects";
+
 import { Image, ImageProps } from "../components/Image";
 
-import type { IProject } from "../lib/projects";
+import { MAX_WIDTH_PX } from "../styles/variables";
 
 export type Props = {
   project: IProject;
@@ -14,7 +16,9 @@ export type Props = {
 const components = {
   p: ({ children }: any) => <p className="w-full text-center">{children}</p>,
 
-  img: (props: ImageProps) => <Image alt="" className="my-4" {...props} />,
+  img: ({ src }: ImageProps) => (
+    <Image src={src} alt="" className="my-4" sizes={{ lg: MAX_WIDTH_PX }} />
+  ),
 
   YouTube: (props: any) => (
     <div className="my-4 w-full">

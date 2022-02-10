@@ -4,13 +4,13 @@ import useWindowSize from "./useWindowSize";
 
 import { BREAKPOINTS } from "../styles/variables";
 
-const LARGE_DEVICE_PX = parseFloat(BREAKPOINTS.lg);
+const LARGE_DEVICE_PX = parseFloat(BREAKPOINTS.lg)
 
 const useScreenSize = () => {
   const { width } = useWindowSize();
 
   const screenSize = useMemo(() => {
-    const isMobile = width === undefined || width < LARGE_DEVICE_PX;
+    const isMobile = !!width && width < LARGE_DEVICE_PX;
 
     return {
       isMobile,
