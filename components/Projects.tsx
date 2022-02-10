@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import cx from "classnames";
 
@@ -64,21 +64,20 @@ const ProjectList = ({
   isLeftColumn?: boolean;
 }) => {
   const { isMobile } = useScreenSize();
+  const [maxWidths, setMaxWidths] = useState<number[]>([]);
   const [hoveredProject, setHoveredProject] = useState<string>();
 
-  const projectList = useMemo(
-    () =>
-      projects.map((project) => ({
-        ...project,
-        maxWidth: randomInt(MIN_RANDOM_WIDTH, MAX_RANDOM_WIDTH),
-      })),
+  useEffect(() => {
+    if (projects.length === maxWidths.length) return;
 
-    [projects]
-  );
+    setMaxWidths(
+      projects.map(() => randomInt(MIN_RANDOM_WIDTH, MAX_RANDOM_WIDTH))
+    );
+  }, [projects, maxWidths]);
 
   return (
     <ol className="w-full">
-      {projectList.map((project, i) => (
+      {projects.map((project, i) => (
         <li
           key={project.slug}
           className={cx("flex justify-center", {
@@ -91,12 +90,16 @@ const ProjectList = ({
             <a
               className="w-full"
               style={{
-                maxWidth: project.maxWidth,
+                maxWidth: maxWidths[i],
               }}
               onMouseEnter={() => setHoveredProject(project.slug)}
               onMouseLeave={() => setHoveredProject(undefined)}
             >
-              <Image src={project.image} alt={project.title} />
+              <Image
+                src={project.image}
+                alt={project.title}
+                sizes={isMobile ? "100vw" : "520px"}
+              />
 
               <h2
                 className={cx("mt-2 text-center text-gray-500", {
