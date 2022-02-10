@@ -87,7 +87,10 @@ export const Image = ({
             {...rest}
             {...imgAttributes}
             alt={""}
-            className="absolute inset-0 max-h-full object-contain animate-fade-in"
+            className="absolute inset-0 max-h-full object-contain"
+            onLoad={(e) => {
+              e.currentTarget.className = `${e.currentTarget.className} animate-fade-in`;
+            }}
           />
         </picture>
       )}
