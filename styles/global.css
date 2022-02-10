@@ -38,6 +38,6 @@ body {
   border: 0;
 }
 
-.image-contain-height span {
+.image-contain-height {
   max-height: 70vh;
 }
