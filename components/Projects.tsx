@@ -100,6 +100,7 @@ const ProjectList = ({
                 src={project.image}
                 alt={project.title}
                 sizes={{ lg: "520px" }}
+                objectPosition={isLeftColumn ? "right" : "left"}
               />
 
               <h2

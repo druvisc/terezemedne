@@ -5,7 +5,6 @@ import cx from "classnames";
 import { useIntersection } from "../hooks/useIntersection";
 import { ImageAttributes } from "../hooks/useImageLoaded";
 
-import defaultImageLoader from "../loaders/imageLoader";
 import defaultResizedLoader, {
   ResizedLoader,
   UploadSrc,
@@ -19,17 +18,17 @@ export type ImageProps = Omit<ImageAttributes, "src" | "sizes"> & {
   src: UploadSrc;
   sizes?: Parameters<typeof getSizes>[0];
   containHeight?: boolean;
+  objectPosition?: React.CSSProperties["objectPosition"];
   resizedLoader?: ResizedLoader;
-  loader?: typeof defaultImageLoader;
 };
 
 export const Image = ({
   className,
   src: uploadSrc,
   sizes: sizeMap = {},
-  resizedLoader = defaultResizedLoader,
   containHeight = true,
-  loader = defaultImageLoader,
+  objectPosition = "center",
+  resizedLoader = defaultResizedLoader,
   ...rest
 }: ImageProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,6 +48,9 @@ export const Image = ({
   const paddingTop = isNaN(quotient) ? "100%" : `${quotient * 100}%`;
 
   const imgAttributes = {
+    style: {
+      objectPosition,
+    } as React.CSSProperties,
     width,
     height,
     srcSet,

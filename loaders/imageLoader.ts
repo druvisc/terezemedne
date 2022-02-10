@@ -1,3 +1,6 @@
+/**
+ * Currently not used together with components/NextImage.
+ */
 import { DEFAULT_IMAGE_WIDTH } from "../constants/images";
 
 import { isWebpSupported } from "../utils";
