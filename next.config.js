@@ -1,8 +1,5 @@
-const {
-  DEVICE_SIZES,
-  IMAGE_SIZES,
-  CONFIG: { isDev },
-} = require("./constants");
+const { isDev } = require("./config");
+const { DEVICE_SIZES, IMAGE_SIZES } = require("./constants/images");
 
 const ContentSecurityPolicy = `
   default-src 'none';

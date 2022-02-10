@@ -98,7 +98,7 @@ const ProjectList = ({
               <Image
                 src={project.image}
                 alt={project.title}
-                sizes={isMobile ? "100vw" : "520px"}
+                sizes={{ lg: "520px" }}
               />
 
               <h2

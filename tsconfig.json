@@ -21,7 +21,7 @@
     "**/*.ts",
     "**/*.tsx",
     "scripts/sharp.js",
-    "constants.js"
+    "constants/images.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -5,8 +5,6 @@ import type { IAbout } from "../lib/about";
 
 import { Image } from "../components/Image";
 
-import { UploadSrc } from "../loaders/resizedLoader";
-
 export type Props = {
   about: IAbout;
   mdx: MDXRemoteSerializeResult;
@@ -18,9 +16,9 @@ export const About = ({ about, mdx }: Props) => {
       <main className="px-4 flex flex-col items-center lg:flex-row lg:items-start">
         <div className="w-full flex flex-1 lg:w-auto">
           <Image
-            sizes="768px"
-            src={about.image as UploadSrc}
+            src={about.image}
             alt={about.fullName}
+            sizes={{ lg: "592px" }}
           />
         </div>
 

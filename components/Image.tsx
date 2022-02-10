@@ -8,8 +8,11 @@ import defaultResizedLoader, {
   UploadSrc,
 } from "../loaders/resizedLoader";
 
-export type ImageProps = NextImageProps & {
+import { getSizes } from "../utils";
+
+export type ImageProps = Omit<NextImageProps, "src" | "sizes"> & {
   src: UploadSrc;
+  sizes?: Parameters<typeof getSizes>[0];
   containHeight?: boolean;
   resizedLoader?: ResizedLoader;
 };
@@ -17,6 +20,7 @@ export type ImageProps = NextImageProps & {
 export const Image = ({
   className,
   src: uploadSrc,
+  sizes = {},
   resizedLoader = defaultResizedLoader,
   containHeight = true,
   width: containerWidth,
@@ -41,6 +45,7 @@ export const Image = ({
     >
       <NextImage
         {...rest}
+        sizes={getSizes(sizes)}
         src={src}
         width={width}
         height={height}

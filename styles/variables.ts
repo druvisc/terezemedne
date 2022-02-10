@@ -1,10 +1,14 @@
-// Taken from: https://tailwindcss.com/docs/screens
-export const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  "2xl": 1536,
-};
+const defaultTheme = require("tailwindcss/defaultTheme");
 
-export type Breakpoint = keyof typeof BREAKPOINTS;
+// Possibly Tailwind TS typings are available.
+// https://tailwindcss.com/docs/theme#referencing-the-default-theme
+export type Breakpoint = "sm" | "md" | "lg" | "xl" | "x2l";
+export const BREAKPOINTS: Record<Breakpoint, string> = defaultTheme.screens;
+
+// const MAX_WIDTHS = defaultTheme.maxWidth({
+//   theme: () => defaultTheme,
+//   breakpoints: () => defaultTheme.screens,
+// });
+
+export const MAX_WIDTH = "7xl";
+// export const MAX_WIDTH_PX = MAX_WIDTHS[MAX_WIDTH];

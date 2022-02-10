@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE_WIDTH } from "../constants";
+import { DEFAULT_IMAGE_WIDTH } from "../constants/images";
 
 import { isWebpSupported } from "../utils";
 

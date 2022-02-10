@@ -14,9 +14,7 @@ export type Props = {
 const components = {
   p: ({ children }: any) => <p className="w-full text-center">{children}</p>,
 
-  img: (props: ImageProps) => (
-    <Image alt="" className="my-4" {...props} />
-  ),
+  img: (props: ImageProps) => <Image alt="" className="my-4" {...props} />,
 
   YouTube: (props: any) => (
     <div className="my-4 w-full">

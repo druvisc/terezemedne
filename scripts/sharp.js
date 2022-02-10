@@ -11,7 +11,7 @@ const {
   IMAGE_WIDTHS,
   IMAGE_ATTRIBUTES_URI,
   DEFAULT_IMAGE_WIDTH,
-} = require("../constants");
+} = require("../constants/images");
 
 const ImageAttributes = require(`.${IMAGE_ATTRIBUTES_URI}`);
 
