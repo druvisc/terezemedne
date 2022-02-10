@@ -4,6 +4,7 @@ const sharp = require("sharp");
 const urlSlug = require("url-slug");
 
 const {
+  PUBLIC_FOLDER,
   UPLOADS_DIR,
   RESIZED_DIR,
   IMAGE_QUALITY,
@@ -14,13 +15,13 @@ const {
 
 const ImageAttributes = require(`.${IMAGE_ATTRIBUTES_URI}`);
 
-// See config.yml "public_folder".
-const getPublicUri = (uri) => uri.replace("./public", "");
+const getPublicUri = (uri) => uri.replace(PUBLIC_FOLDER, "");
 
 const resize = async (imageDir, resizedDir, sizes, quality) => {
   // Remove previously re-sized images.
-  fs.existsSync(resizedDir) && fs.rmSync(resizedDir);
+  fs.rmSync(resizedDir, { force: true, recursive: true });
   fs.mkdirSync(resizedDir);
+  //
 
   // Ignore hidden files.
   const imageFileNames = fs
@@ -54,10 +55,13 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
       ImageAttributes[publicUri] = {
         width,
         height,
-        // srcSet is currently not used (because of next/image).
-        // srcSet: sizes.map(
-        //   (width) => `/images/resized/${slug}-${width}${format} ${width}w`
-        // ).join(", "),
+        format,
+        srcSet: sizes
+          .map(
+            (width) =>
+              `${getPublicUri(RESIZED_DIR)}${slug}-${width}.${format} ${width}w`
+          )
+          .join(", "),
         // Default to largest width.
         src: `${getPublicUri(
           resizedDir
@@ -72,16 +76,15 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
         })
       );
 
-      // Create .webp images.
-      // transformer.webp({ quality });
+      transformer.webp({ quality });
 
-      // await Promise.all(
-      //   sizes.map((size) => {
-      //     transformer.resize(size);
+      await Promise.all(
+        sizes.map((size) => {
+          transformer.resize(size);
 
-      //     return transformer.toFile(`${resizedDir}/${slug}-${size}.webp`);
-      //   })
-      // );
+          return transformer.toFile(`${resizedDir}/${slug}-${size}.webp`);
+        })
+      );
     })
   );
 

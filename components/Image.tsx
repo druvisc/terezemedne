@@ -19,14 +19,14 @@ export const Image = ({
   src: uploadSrc,
   resizedLoader = defaultResizedLoader,
   containHeight = true,
-  width,
-  height,
+  width: containerWidth,
+  height: containerHeight,
   loader = defaultImageLoader,
   ...rest
 }: ImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const imageAttributes = resizedLoader({ src: uploadSrc as UploadSrc });
+  const { width, height, src } = resizedLoader({ src: uploadSrc as UploadSrc });
 
   return (
     <div
@@ -37,11 +37,13 @@ export const Image = ({
         "w-full",
         { "image-contain-height": containHeight },
       ])}
-      style={{ width, height }}
+      style={{ width: containerWidth, height: containerHeight }}
     >
       <NextImage
         {...rest}
-        {...imageAttributes}
+        src={src}
+        width={width}
+        height={height}
         layout="responsive"
         objectFit="contain"
         loader={loader}

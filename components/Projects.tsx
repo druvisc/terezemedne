@@ -96,7 +96,7 @@ const ProjectList = ({
               onMouseEnter={() => setHoveredProject(project.slug)}
               onMouseLeave={() => setHoveredProject(undefined)}
             >
-              <Image src={project.image} alt={project.title} priority={i < 2} />
+              <Image src={project.image} alt={project.title} />
 
               <h2
                 className={cx("mt-2 text-center text-gray-500", {

@@ -1,9 +1,10 @@
 const { DEVICE_SIZES, IMAGE_SIZES } = require("./constants");
 
+// TODO: Fix connect-src wildcard for Safari: https://github.com/graphile/starter/pull/244
 const ContentSecurityPolicy = `
   default-src 'none';
   base-uri 'self';
-  connect-src 'self';
+  connect-src 'self' *;
   script-src 'self' 'unsafe-eval' www.youtube.com;
   style-src 'self' 'unsafe-inline';
   font-src 'self';
