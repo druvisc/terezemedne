@@ -89,6 +89,7 @@ const ProjectList = ({
           <Link href={`/projects/${project.slug}`}>
             <a
               className="w-full"
+              aria-label={project.title}
               style={{
                 maxWidth: maxWidths[i],
               }}
