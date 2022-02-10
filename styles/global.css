@@ -37,7 +37,3 @@ body {
   height: 100%;
   border: 0;
 }
-
-.image-contain-height {
-  max-height: 70vh;
-}

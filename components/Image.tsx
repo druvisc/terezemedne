@@ -29,8 +29,6 @@ export const Image = ({
   sizes: sizeMap = {},
   resizedLoader = defaultResizedLoader,
   containHeight = true,
-  width: containerWidth,
-  height: containerHeight,
   loader = defaultImageLoader,
   ...rest
 }: ImageProps) => {
@@ -47,21 +45,8 @@ export const Image = ({
     setIsInView(true);
   });
 
-  const commonClassnames = cx([{ "max-h-[70vh]": containHeight }]);
-
-  const commonStyles = {
-    width,
-    height,
-  };
-
   const quotient = height / width;
   const paddingTop = isNaN(quotient) ? "100%" : `${quotient * 100}%`;
-
-  const placeHolderStyles = {
-    ...commonStyles,
-    paddingTop,
-    maxWidth: "100%",
-  };
 
   const imgAttributes = {
     width,
@@ -69,16 +54,20 @@ export const Image = ({
     srcSet,
     sizes,
     src,
-    className: `${commonClassnames} object-contain animate-fade-in`,
   };
 
   return (
     <div
       ref={ref}
-      className={className}
-      style={{ width: containerWidth, height: containerHeight }}
+      className={cx([
+        className,
+        "w-full relative",
+        { "max-h-[70vh]": containHeight },
+      ])}
     >
-      {isInView ? (
+      <div style={{ paddingTop }}></div>
+
+      {isInView && (
         <picture>
           <source
             type="image/webp"
@@ -92,10 +81,13 @@ export const Image = ({
             sizes={imgAttributes.sizes}
           />
 
-          <img {...rest} {...imgAttributes} alt={rest.alt || ""} />
+          <img
+            {...rest}
+            {...imgAttributes}
+            alt={rest.alt || ""}
+            className="absolute inset-0 max-h-full object-contain animate-fade-in"
+          />
         </picture>
-      ) : (
-        <div className={commonClassnames} style={placeHolderStyles}></div>
       )}
     </div>
   );
