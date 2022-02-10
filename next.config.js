@@ -1,10 +1,16 @@
-const { DEVICE_SIZES, IMAGE_SIZES } = require("./constants");
+const {
+  DEVICE_SIZES,
+  IMAGE_SIZES,
+  CONFIG: { isDev },
+} = require("./constants");
 
-// TODO: Fix connect-src wildcard for Safari: https://github.com/graphile/starter/pull/244
 const ContentSecurityPolicy = `
   default-src 'none';
   base-uri 'self';
-  connect-src 'self' *;
+  connect-src 'self' ${
+    // Local development websocket wildcard for Safari: https://github.com/graphile/starter/pull/244
+    isDev ? "*" : ""
+  };
   script-src 'self' 'unsafe-eval' www.youtube.com;
   style-src 'self' 'unsafe-inline';
   font-src 'self';
@@ -15,8 +21,8 @@ const ContentSecurityPolicy = `
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  // optimizeFonts: false,
   productionBrowserSourceMaps: true,
+  optimizeFonts: false,
   images: {
     loader: "custom",
     deviceSizes: DEVICE_SIZES,

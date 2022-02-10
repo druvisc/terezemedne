@@ -1,3 +1,9 @@
+const CONFIG = {
+  isTest: process.env.NODE_ENV === "test",
+  isDev: process.env.NODE_ENV === "development",
+  isProd: process.env.NODE_ENV === "production",
+};
+
 // "max-width: 80rem (1280px)" is defined on components/Layout,
 // so largest image on a retina screen would be 2560px -
 // let's say 1920px is close enough.
@@ -10,6 +16,8 @@ const IMAGE_WIDTHS = [...DEVICE_SIZES, ...IMAGE_SIZES].sort((a, b) => a - b);
 const PUBLIC_FOLDER = "./public";
 
 module.exports = {
+  CONFIG,
+
   UPLOADS_DIR: `${PUBLIC_FOLDER}/images/uploads`,
   RESIZED_DIR: `${PUBLIC_FOLDER}/images/resized`,
   IMAGE_QUALITY: 70,
