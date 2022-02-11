@@ -7,8 +7,8 @@ const {
   PUBLIC_FOLDER,
   UPLOADS_DIR,
   RESIZED_DIR,
-  IMAGE_QUALITY,
   IMAGE_WIDTHS,
+  IMAGE_QUALITY,
   IMAGE_ATTRIBUTES_URI,
   DEFAULT_IMAGE_WIDTH,
 } = require("../constants/images");

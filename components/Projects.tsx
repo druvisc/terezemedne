@@ -91,7 +91,7 @@ const ProjectList = ({
               className="w-full"
               aria-label={project.title}
               style={{
-                maxWidth: maxWidths[i],
+                maxWidth: isMobile ? "none" : maxWidths[i],
               }}
               onMouseEnter={() => setHoveredProject(project.slug)}
               onMouseLeave={() => setHoveredProject(undefined)}

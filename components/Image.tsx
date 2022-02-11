@@ -19,7 +19,7 @@ export type ImageProps = Omit<ImageAttributes, "src" | "sizes"> & {
   sizes?: Parameters<typeof getSizes>[0];
   containHeight?: boolean;
   objectPosition?: React.CSSProperties["objectPosition"];
-  resizedLoader?: ResizedLoader;
+  loader?: ResizedLoader;
 };
 
 export const Image = ({
@@ -28,7 +28,7 @@ export const Image = ({
   sizes: sizeMap = {},
   containHeight = false,
   objectPosition = "center",
-  resizedLoader = defaultResizedLoader,
+  loader = defaultResizedLoader,
   ...rest
 }: ImageProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export const Image = ({
 
   const sizes = getSizes(sizeMap);
 
-  const { width, height, srcSet, src, format } = resizedLoader({
+  const { width, height, srcSet, src, format } = loader({
     src: uploadSrc,
   });
 
@@ -87,9 +87,9 @@ export const Image = ({
             {...rest}
             {...imgAttributes}
             alt={""}
-            className="absolute inset-0 max-h-full object-contain"
+            className="absolute inset-0 max-h-full object-contain opacity-0 transition-opacity duration-1000"
             onLoad={(e) => {
-              e.currentTarget.className = `${e.currentTarget.className} animate-fade-in`;
+              e.currentTarget.className = `${e.currentTarget.className} opacity-100`;
             }}
           />
         </picture>

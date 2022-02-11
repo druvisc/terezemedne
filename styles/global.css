@@ -1,9 +1,9 @@
 @font-face {
-  font-family: "Roboto";
+  font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url("/fonts/Roboto.woff2") format("woff2");
+  src: url("/assets/fonts/Roboto.woff2") format("woff2");
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 }
 
 #__next {
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
 
   display: flex;
   flex-direction: column;
