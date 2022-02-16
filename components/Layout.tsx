@@ -10,7 +10,7 @@ import { MAX_WIDTH } from "../styles/variables";
 
 const NAME = "Terēze Medne";
 
-export const Layout = ({ children }: { children: any }) => {
+export const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Head>

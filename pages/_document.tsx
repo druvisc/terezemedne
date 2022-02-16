@@ -1,4 +1,4 @@
-import Document, {
+import NextDocument, {
   Html,
   Head,
   Main,
@@ -6,9 +6,9 @@ import Document, {
   DocumentContext,
 } from "next/document";
 
-class MyDocument extends Document {
+class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
+    const initialProps = await NextDocument.getInitialProps(ctx);
 
     return { ...initialProps };
   }
@@ -18,7 +18,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            href="/fonts/Roboto.woff2"
+            href="/assets/fonts/Roboto.woff2"
             as="font"
             rel="preload"
             // Necessary to avoid fetching the font twice.
@@ -37,4 +37,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+export default Document;

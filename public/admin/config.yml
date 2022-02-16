@@ -20,7 +20,7 @@ collections:
           - label: "Instagram"
             name: "instagram"
             widget: "string"
-            optinal: true
+            optional: true
 
   - name: "about"
     label: "About"
@@ -38,7 +38,7 @@ collections:
           - label: "Full Name"
             name: "fullName"
             widget: "string"
-            optinal: true
+            optional: true
           - label: "Image"
             name: "image"
             widget: "image"

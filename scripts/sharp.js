@@ -59,7 +59,9 @@ const resize = async (imageDir, resizedDir, sizes, quality) => {
         srcSet: sizes
           .map(
             (width) =>
-              `${getPublicUri(RESIZED_DIR)}/${slug}-${width}.${format} ${width}w`
+              `${getPublicUri(
+                RESIZED_DIR
+              )}/${slug}-${width}.${format} ${width}w`
           )
           .join(", "),
         // Default to largest width.
